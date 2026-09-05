@@ -6,7 +6,7 @@ const rendition = book.renderTo("viewer", {
   flow: "paginated", manager: "default"
 
 });
-rendition.spread("none");
+
 let fontSize = 100;
 
 function renderToc(items, parent) {
@@ -25,7 +25,7 @@ book.ready.then(() => {
   return book.loaded.navigation;
 }).then(nav => renderToc(nav.toc, document.getElementById("toc")));
 
-rendition.display().then(() => updateLocation());
+rendition.display().then(() => { rendition.spread("none"); updateLocation()); });
 
 rendition.on("relocated", updateLocation);
 
