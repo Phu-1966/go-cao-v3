@@ -1,7 +1,7 @@
 
 const book = ePub("phia-sau-buc-tuong.epub", {});
 const rendition = book.renderTo("viewer", {
-  width: "100%", height: "100%", spread: "none",
+  width: "100%", height: "100%", layout: "reflowable", spread: "none",
   minSpreadWidth: 9999,
   flow: "paginated", manager: "default"
 
