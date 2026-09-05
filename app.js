@@ -4,7 +4,7 @@ const rendition = book.renderTo("viewer", {
   width: "100%", height: "100%", spread: "none",
   minSpreadWidth: 9999,
   flow: "paginated", manager: "default"
-  contained: true
+
 });
 rendition.spread("none");
 let fontSize = 100;
