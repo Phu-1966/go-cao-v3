@@ -1,0 +1,15 @@
+JSON
+
+{
+
+  "name": "go-cao-v3",
+
+  "compatibility_date": "2026-09-04",
+
+  "assets": {
+
+    "directory": "."
+
+  }
+
+}
