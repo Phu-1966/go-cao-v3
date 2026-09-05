@@ -6,6 +6,7 @@ const rendition = book.renderTo("viewer", {
   minSpreadWidth: 9999,
   flow: "paginated", manager: "default"
 });
+rendition.spread("none");
 let fontSize = 100;
 
 function renderToc(items, parent) {
