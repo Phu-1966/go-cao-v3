@@ -25,7 +25,9 @@ book.ready.then(() => {
   return book.loaded.navigation;
 }).then(nav => renderToc(nav.toc, document.getElementById("toc")));
 
-rendition.display().then(() => { rendition.spread("none"); updateLocation()); });
+rendition.display().then(() => { rendition.spread("none"); updateLocation());
+                               
+                               });
 
 rendition.on("relocated", updateLocation);
 
