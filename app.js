@@ -1,5 +1,5 @@
 
-const book = ePub("phia-sau-buc-tuong.epub");
+const book = ePub("phia-sau-buc-tuong.epub", {});
 const rendition = book.renderTo("viewer", {
   width: "100%", height: "100%", spread: "none",
   flow: "paginated", manager: "default"
