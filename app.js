@@ -15,6 +15,7 @@ rendition.hooks.content.register(function(contents) {
     encodeURIComponent(`
 
       html, body {
+      width: 100% !important;
 
         column-count: 1 !important;
 
