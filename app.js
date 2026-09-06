@@ -23,7 +23,8 @@ rendition.hooks.content.register(function(contents) {
         column-width: auto !important;
 
         -webkit-column-width: auto !important;
-
+        
+overflow-x: hidden !important;
       }
 
     `)
