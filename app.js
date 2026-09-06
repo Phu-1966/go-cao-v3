@@ -3,7 +3,6 @@ const book = ePub("phia-sau-buc-tuong.epub", {});
 const rendition = book.renderTo("viewer", {
   width: "100vw", height: "100%", layout: "reflowable", spread: "none",
 
-  flow: "paginated", manager: "default"
 
 });
 rendition.hooks.content.register(function(contents) {
