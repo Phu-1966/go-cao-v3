@@ -15,14 +15,7 @@ rendition.hooks.content.register(function(contents) {
 
       html, body {
 
-  column-count: 1 !important;
-
-  -webkit-column-count: 1 !important;
-
-  column-width: auto !important;
-
-  -webkit-column-width: auto !important;
-
+  
   padding-left: 2% !important;
 
   padding-right: 2% !important;
