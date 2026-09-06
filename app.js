@@ -35,7 +35,7 @@ overflow-x: hidden !important;
   page-break-after: always !important;
 
 }
-      }
+      
 
     `)
 
