@@ -15,19 +15,22 @@ rendition.hooks.content.register(function(contents) {
 
       html, body {
 
-        column-count: 1 !important;
+  column-count: 1 !important;
 
-        -webkit-column-count: 1 !important;
+  -webkit-column-count: 1 !important;
 
-        column-width: auto !important;
+  column-width: auto !important;
 
-        -webkit-column-width: auto !important;
-        padding-left: 2% !important;
+  -webkit-column-width: auto !important;
 
-padding-right: 2% !important;
-        
-overflow-x: hidden !important;
+  padding-left: 2% !important;
+
+  padding-right: 2% !important;
+
+  overflow-x: hidden !important;
+
 }
+
 .chapter-page {
 
   break-after: page !important;
@@ -35,6 +38,8 @@ overflow-x: hidden !important;
   page-break-after: always !important;
 
 }
+      
+      
       
 
     `)
