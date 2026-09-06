@@ -6,6 +6,31 @@ const rendition = book.renderTo("viewer", {
   flow: "paginated", manager: "default"
 
 });
+rendition.hooks.content.register(function(contents) {
+
+  contents.addStylesheet(
+
+    "data:text/css," +
+
+    encodeURIComponent(`
+
+      html, body {
+
+        column-count: 1 !important;
+
+        -webkit-column-count: 1 !important;
+
+        column-width: auto !important;
+
+        -webkit-column-width: auto !important;
+
+      }
+
+    `)
+
+  );
+
+});
 
 let fontSize = 100;
 
