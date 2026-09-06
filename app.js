@@ -22,9 +22,9 @@ rendition.hooks.content.register(function(contents) {
         column-width: auto !important;
 
         -webkit-column-width: auto !important;
-        padding-left: 5% !important;
+        padding-left: 4% !important;
 
-padding-right: 5% !important;
+padding-right: 4% !important;
         
 overflow-x: hidden !important;
       }
