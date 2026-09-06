@@ -20,9 +20,9 @@ rendition.hooks.content.register(function(contents) {
 
         -webkit-column-count: 1 !important;
 
-        column-width: auto !important;
+        column-width: 100% !important;
 
-        -webkit-column-width: auto !important;
+        -webkit-column-width: 100% !important;
 
       }
 
