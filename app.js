@@ -27,6 +27,7 @@ rendition.hooks.content.register(function(contents) {
 padding-right: 2% !important;
         
 overflow-x: hidden !important;
+}
 .chapter-page {
 
   break-after: page !important;
