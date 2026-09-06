@@ -15,7 +15,11 @@ rendition.hooks.content.register(function(contents) {
 
       html, body {
 
-  
+  width: 100% !important;
+
+max-width: 100% !important;
+
+box-sizing: border-box !important;
   padding-left: 2% !important;
 
   padding-right: 2% !important;
