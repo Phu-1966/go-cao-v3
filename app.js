@@ -20,7 +20,7 @@ rendition.hooks.content.register(function(contents) {
 
   padding-right: 2% !important;
 
-  display: inline-block !important;
+
 
 }
 
