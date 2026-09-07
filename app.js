@@ -57,7 +57,7 @@ book.ready.then(() => {
   return book.loaded.navigation;
 }).then(nav => renderToc(nav.toc, document.getElementById("toc")));
 
-rendition.display().then(() => rendition.resize(); updateLocation());
+rendition.display().then(() =>  updateLocation());
                                
                                
 
