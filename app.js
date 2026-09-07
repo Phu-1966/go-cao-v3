@@ -5,39 +5,7 @@ const rendition = book.renderTo("viewer", {
   contained: true,
 
 });
-rendition.hooks.content.register(function(contents) {
 
-  contents.addStylesheet(
-
-    "data:text/css," +
-
-    encodeURIComponent(`
-
-      html, body {
-
-  
-  padding-left: 0% !important;
-
-  padding-right: 0% !important;
-box-sizing: border-box !important;
-
-
-}
-
-.chapter-page {
-
-  
-
-}
-      
-      
-      
-
-    `)
-
-  );
-
-});
 
 let fontSize = 100;
 
