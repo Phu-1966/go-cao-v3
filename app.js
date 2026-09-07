@@ -63,11 +63,36 @@ rendition.display().then(() => updateLocation());
 
 rendition.on("relocated", updateLocation);
 
-function updateLocation(cfi) {
+let locationsReady;
+
+async function updateLocation(cfi) {
+
+  if (!locationsReady) {
+
+    locationsReady = book.locations.generate(1000);
+
+  }
+
+  await locationsReady;
+
   const loc = cfi || rendition.currentLocation();
-  const text = loc?.start?.displayed;
+
+  const percent = book.locations.percentageFromCfi(loc?.start?.cfi);
+
+  const totalPages = 357;
+
+  const page = Math.min(
+
+    totalPages,
+
+    Math.max(1, Math.floor(percent * totalPages) + 1)
+
+  );
+
   document.getElementById("location").textContent =
-    text ? `Trang ${text.page || "—"} / ${text.total || "—"}` : "Đang đọc";
+
+    `Trang ${page} / ${totalPages}`;
+
 }
 
 document.getElementById("next").onclick = () => rendition.next();
