@@ -26,9 +26,7 @@ rendition.hooks.content.register(function(contents) {
 
 .chapter-page {
 
-  break-after: page !important;
-
-  page-break-after: always !important;
+  
 
 }
       
