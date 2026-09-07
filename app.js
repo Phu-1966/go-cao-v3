@@ -19,7 +19,7 @@ rendition.hooks.content.register(function(contents) {
   padding-left: 2% !important;
 
   padding-right: 2% !important;
-
+box-sizing: border-box !important;
 
 
 }
