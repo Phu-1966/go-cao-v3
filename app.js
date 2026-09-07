@@ -16,9 +16,9 @@ rendition.hooks.content.register(function(contents) {
       html, body {
 
   
-  padding-left: 2% !important;
+  padding-left: 0% !important;
 
-  padding-right: 2% !important;
+  padding-right: 0% !important;
 box-sizing: border-box !important;
 
 
