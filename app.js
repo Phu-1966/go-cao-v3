@@ -5,7 +5,7 @@ const rendition = book.renderTo("viewer", {
   manager: "default",
 
 });
-
+rendition.spread("none");
 
 let fontSize = 100;
 
