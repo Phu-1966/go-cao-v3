@@ -16,11 +16,21 @@ settings: { gap: 0 },
 
 });
 rendition.spread("none");
-rendition.hooks.content.register(contents => {
+rendition.hooks.render.register((view) => {
 
-  contents.document.documentElement.style.setProperty("column-gap", "0px", "important");
+  const contents = view.contents;
 
-  contents.document.body.style.setProperty("column-gap", "0px", "important");
+  if (!contents) return;
+
+  contents.document.body.style.setProperty(
+
+    "display",
+
+    "inline-block",
+
+    "important"
+
+  );
 
 });
 let fontSize = 100;
