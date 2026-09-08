@@ -6,7 +6,13 @@ const rendition = book.renderTo("viewer", {
 
 });
 rendition.spread("none");
+rendition.hooks.content.register(contents => {
 
+  contents.document.documentElement.style.setProperty("column-gap", "0px", "important");
+
+  contents.document.body.style.setProperty("column-gap", "0px", "important");
+
+});
 let fontSize = 100;
 
 function renderToc(items, parent) {
