@@ -21,7 +21,7 @@ rendition.hooks.content.register(contents => {
   contents.document.documentElement.style.setProperty("column-gap", "0px", "important");
 
   contents.document.body.style.setProperty("column-gap", "0px", "important");
-contents.document.body.style.setProperty("display", "inline-block", "important");
+
 });
 let fontSize = 100;
 
