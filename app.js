@@ -1,7 +1,17 @@
 
 const book = ePub("phia-sau-buc-tuong.epub", {});
 const rendition = book.renderTo("viewer", {
-  width: document.getElementById("viewer").clientWidth, height: "100%", layout: "reflowable", flow: "paginated",spread: "none",
+
+  width: document.getElementById("viewer").clientWidth,
+
+  height: "100%",
+
+  layout: "reflowable",
+
+  flow: "paginated",
+
+  spread: "none",
+
   manager: "default",
 
 });
@@ -36,25 +46,7 @@ rendition.display().then(() => {
   rendition.spread("none");
 
   updateLocation();
-  setTimeout(() => {
-
-  const f = document.querySelector("#viewer iframe");
-
-  const d = f && f.contentDocument;
-
-  const b = d && d.body;
-
-  if (b) {
-
-    b.style.setProperty("column-gap", "0px", "important");
-
-    d.documentElement.style.setProperty("column-gap", "0px", "important");
-
-  }
-
-  document.getElementById("location").textContent = "Đã thử bỏ khoảng cách cột";
-
-}, 500);
+  
 });
                                
                                
