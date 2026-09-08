@@ -36,7 +36,7 @@ rendition.display().then(() => {
   rendition.spread("none");
 
   updateLocation();
- setTimeout(() => {
+  setTimeout(() => {
 
   const f = document.querySelector("#viewer iframe");
 
@@ -44,11 +44,17 @@ rendition.display().then(() => {
 
   const b = d && d.body;
 
-  document.getElementById("location").textContent =
+  if (b) {
 
-    `BW=${b ? b.clientWidth : "?"} | SW=${b ? b.scrollWidth : "?"} | CW=${b ? getComputedStyle(b).columnWidth : "?"} | CG=${b ? getComputedStyle(b).columnGap : "?"}`;
+    b.style.setProperty("column-gap", "0px", "important");
 
-}, 500); 
+    d.documentElement.style.setProperty("column-gap", "0px", "important");
+
+  }
+
+  document.getElementById("location").textContent = "Đã thử bỏ khoảng cách cột";
+
+}, 500);
 });
                                
                                
