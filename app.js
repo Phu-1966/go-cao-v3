@@ -30,6 +30,15 @@ rendition.display().then(() => {
   rendition.spread("none");
 
   updateLocation();
+  setTimeout(() => {
+
+  const l = rendition._layout;
+
+  document.getElementById("location").textContent =
+
+    `D=${l?.divisor} | W=${l?.width} | C=${l?.columnWidth} | P=${l?.pageWidth}`;
+
+}, 500);
 
 });
                                
