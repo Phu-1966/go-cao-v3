@@ -32,11 +32,17 @@ rendition.display().then(() => {
   updateLocation();
   setTimeout(() => {
 
-  const l = rendition._layout;
+  const v = document.getElementById("viewer");
+
+  const f = v.querySelector("iframe");
+
+  const vr = v.getBoundingClientRect();
+
+  const fr = f ? f.getBoundingClientRect() : null;
 
   document.getElementById("location").textContent =
 
-    `D=${l?.divisor} | W=${l?.width} | C=${l?.columnWidth} | P=${l?.pageWidth}`;
+    `V=${Math.round(vr.width)} | I=${fr ? Math.round(fr.left - vr.left) : "?"} | IW=${fr ? Math.round(fr.width) : "?"}`;
 
 }, 500);
 
