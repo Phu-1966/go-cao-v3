@@ -11,7 +11,7 @@ const rendition = book.renderTo("viewer", {
   flow: "paginated",
 
   spread: "none",
-gap: 0,
+settings: { gap: 0 },
   manager: "default",
 
 });
