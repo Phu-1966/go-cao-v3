@@ -30,22 +30,19 @@ rendition.display().then(() => {
   rendition.spread("none");
 
   updateLocation();
-  setTimeout(() => {
+ setTimeout(() => {
 
-  const v = document.getElementById("viewer");
+  const f = document.querySelector("#viewer iframe");
 
-  const f = v.querySelector("iframe");
+  const d = f && f.contentDocument;
 
-  const vr = v.getBoundingClientRect();
-
-  const fr = f ? f.getBoundingClientRect() : null;
+  const b = d && d.body;
 
   document.getElementById("location").textContent =
 
-    `V=${Math.round(vr.width)} | I=${fr ? Math.round(fr.left - vr.left) : "?"} | IW=${fr ? Math.round(fr.width) : "?"}`;
+    `BW=${b ? b.clientWidth : "?"} | SW=${b ? b.scrollWidth : "?"} | CW=${b ? getComputedStyle(b).columnWidth : "?"} | CG=${b ? getComputedStyle(b).columnGap : "?"}`;
 
-}, 500);
-
+}, 500); 
 });
                                
                                
