@@ -16,21 +16,21 @@ settings: { gap: 0 },
 
 });
 rendition.spread("none");
-rendition.hooks.render.register((view) => {
+rendition.on("relocated", () => {
 
-  const contents = view.contents;
+  const manager = rendition.manager;
 
-  if (!contents) return;
+  const layout = rendition._layout;
 
-  contents.document.body.style.setProperty(
+  if (!manager || !layout || !manager.container) return;
 
-    "display",
+  const delta = layout.delta;
 
-    "inline-block",
+  const left = manager.container.scrollLeft;
 
-    "important"
+  const page = Math.round(left / delta);
 
-  );
+  manager.container.scrollLeft = page * delta;
 
 });
 let fontSize = 100;
