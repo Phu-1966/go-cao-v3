@@ -6,7 +6,7 @@ const rendition = book.renderTo("viewer", {
 
   height: "100%",
 
-  layout: "reflowable",
+  
 
   flow: "paginated",
 
