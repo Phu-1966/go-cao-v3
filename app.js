@@ -78,26 +78,9 @@ async function updateLocation(cfi) {
     `Trang ${page} / ${totalPages}`;
 
 }
+document.getElementById("next").onclick = () => rendition.next();
 
-document.getElementById("next").onclick = () => {
-
-  const c = rendition.manager.container;
-
-  const d = rendition._layout.delta;
-
-  c.scrollTo({ left: c.scrollLeft + d, behavior: "auto" });
-
-};
-
-document.getElementById("prev").onclick = () => {
-
-  const c = rendition.manager.container;
-
-  const d = rendition._layout.delta;
-
-  c.scrollTo({ left: c.scrollLeft - d, behavior: "auto" });
-
-};
+document.getElementById("prev").onclick = () => rendition.prev();
 document.getElementById("fontPlus").onclick = () => {
   fontSize = Math.min(160, fontSize + 10);
   rendition.themes.fontSize(fontSize + "%");
