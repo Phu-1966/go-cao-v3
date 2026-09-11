@@ -16,23 +16,7 @@ gap: 0 ,
 
 });
 rendition.spread("none");
-rendition.on("relocated", () => {
 
-  const manager = rendition.manager;
-
-  const layout = rendition._layout;
-
-  if (!manager || !layout || !manager.container) return;
-
-  const delta = layout.delta;
-
-  const left = manager.container.scrollLeft;
-
-  const page = Math.round(left / delta);
-
-  manager.container.scrollLeft = page * delta;
-
-});
 let fontSize = 100;
 
 function renderToc(items, parent) {
@@ -62,7 +46,33 @@ rendition.display().then(() => {
                                
 
 rendition.on("relocated", updateLocation);
+rendition.on("relocated", () => {
 
+  setTimeout(() => {
+
+    const f = document.querySelector("#viewer iframe");
+
+    const v = document.querySelector("#viewer .epub-view");
+
+    const d = f && f.contentDocument;
+
+    const b = d && d.body;
+
+    const fr = f ? f.getBoundingClientRect() : null;
+
+    const vr = v ? v.getBoundingClientRect() : null;
+
+    document.getElementById("location").textContent =
+
+      `F=${fr ? Math.round(fr.left) : "?"}/${fr ? Math.round(fr.width) : "?"} | ` +
+
+      `V=${vr ? Math.round(vr.left) : "?"}/${vr ? Math.round(vr.width) : "?"} | ` +
+
+      `BS=${b ? b.scrollLeft : "?"} | `HS=${d ? d.documentElement.scrollLeft : "?"}`;
+
+  }, 200);
+
+});
 let locationsReady;
 
 async function updateLocation(cfi) {
