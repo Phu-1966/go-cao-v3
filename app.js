@@ -37,7 +37,7 @@ book.ready.then(() => {
 
 rendition.display().then(() => {
 
-  rendition.spread("none");
+  
 
   updateLocation();
   
