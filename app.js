@@ -79,8 +79,25 @@ async function updateLocation(cfi) {
 
 }
 
-document.getElementById("next").onclick = () => rendition.next();
-document.getElementById("prev").onclick = () => rendition.prev();
+document.getElementById("next").onclick = () => {
+
+  const c = rendition.manager.container;
+
+  const d = rendition._layout.delta;
+
+  c.scrollTo({ left: c.scrollLeft + d, behavior: "auto" });
+
+};
+
+document.getElementById("prev").onclick = () => {
+
+  const c = rendition.manager.container;
+
+  const d = rendition._layout.delta;
+
+  c.scrollTo({ left: c.scrollLeft - d, behavior: "auto" });
+
+};
 document.getElementById("fontPlus").onclick = () => {
   fontSize = Math.min(160, fontSize + 10);
   rendition.themes.fontSize(fontSize + "%");
