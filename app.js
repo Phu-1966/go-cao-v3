@@ -13,7 +13,7 @@ const rendition = book.renderTo("viewer", {
   spread: "none",
 gap: 0 ,
   manager: "default",
-method: "write",
+
 });
 rendition.spread("none");
 
@@ -78,10 +78,32 @@ async function updateLocation(cfi) {
     `Trang ${page} / ${totalPages}`;
 
 }
+async function turnPage(direction) {
 
-document.getElementById("next").onclick = () => rendition.next();
+    if (direction === "next") {
 
-document.getElementById("prev").onclick = () => rendition.prev();
+        await rendition.next();
+
+    } else {
+
+        await rendition.prev();
+
+    }
+
+    const manager = rendition.manager;
+
+    const view = manager && manager.current();
+
+    if (view && view.expand) {
+
+        view.expand();
+
+    }
+
+}
+document.getElementById("next").onclick = () => turnPage("next");
+
+document.getElementById("prev").onclick = () => turnPage("prev");
 document.getElementById("fontPlus").onclick = () => {
   fontSize = Math.min(160, fontSize + 10);
   rendition.themes.fontSize(fontSize + "%");
