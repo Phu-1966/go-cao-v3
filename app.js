@@ -15,51 +15,7 @@ gap: 0 ,
   manager: "default",
 
 });
-const manager = rendition.manager;
 
-const originalScrollBy = manager.scrollBy.bind(manager);
-
-manager.scrollBy = function (x, y, silent) {
-
-    originalScrollBy(x, y, silent);
-
-    if (!this.settings.fullsize) {
-
-        if (x) {
-
-            const remainder = this.container.scrollLeft % x;
-
-            if (Math.abs(x - remainder) >= 1) {
-
-                const compensationDir =
-
-                    Math.round(remainder / x) === 1 ? 1 : -1;
-
-                this.container.scrollLeft += compensationDir;
-
-            }
-
-        }
-
-        if (y) {
-
-            const remainder = this.container.scrollTop % y;
-
-            if (Math.abs(y - remainder) >= 1) {
-
-                const compensationDir =
-
-                    Math.round(remainder / y) === 1 ? 1 : -1;
-
-                this.container.scrollTop += compensationDir;
-
-            }
-
-        }
-
-    }
-
-};
 rendition.spread("none");
 
 let fontSize = 100;
