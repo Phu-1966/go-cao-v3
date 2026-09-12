@@ -13,7 +13,7 @@ const rendition = book.renderTo("viewer", {
   spread: "none",
 gap: 0 ,
   manager: "default",
-
+method: "write",
 });
 rendition.spread("none");
 
@@ -78,36 +78,10 @@ async function updateLocation(cfi) {
     `Trang ${page} / ${totalPages}`;
 
 }
-async function turnPage(direction) {
 
-  if (direction === "next") {
+document.getElementById("next").onclick = () => rendition.next();
 
-    await rendition.next();
-
-  } else {
-
-    await rendition.prev();
-
-  }
-
-  requestAnimationFrame(() => {
-
-    const iframe = document.querySelector("#viewer iframe");
-
-    if (!iframe) return;
-
-    iframe.style.transform = "translateZ(0)";
-
-    void iframe.offsetWidth;
-
-    iframe.style.transform = "";
-
-  });
-
-}
-document.getElementById("next").onclick = () => turnPage("next");
-
-document.getElementById("prev").onclick = () => turnPage("prev");
+document.getElementById("prev").onclick = () => rendition.prev();
 document.getElementById("fontPlus").onclick = () => {
   fontSize = Math.min(160, fontSize + 10);
   rendition.themes.fontSize(fontSize + "%");
@@ -120,9 +94,11 @@ document.getElementById("fontMinus").onclick = () => {
 // Ten-page jump: walk ten paginated spreads in the current direction.
 async function jump(n) {
   for (let i=0;i<Math.abs(n);i++) {
-    if (n > 0) await turnPage("next");
+  if (n > 0) await rendition.next();
 
-else await turnPage("prev");
+else await rendition.prev();
+
+
   
   }
 }
