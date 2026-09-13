@@ -228,31 +228,7 @@ function showDiagnostic() {
 
 }
 
-  box.textContent = [
-
-    "EPUB DIAGNOSTIC",
-
-    `scrollLeft : ${c ? c.scrollLeft : "?"}`,
-
-    `scrollWidth: ${c ? c.scrollWidth : "?"}`,
-
-    `delta      : ${l ? l.delta : "?"}`,
-
-    `pageWidth  : ${l ? l.pageWidth : "?"}`,
-
-    `divisor    : ${l ? l.divisor : "?"}`,
-
-    `view.left  : ${vr ? vr.left.toFixed(2) : "?"}`,
-
-    `view.width : ${vr ? vr.width.toFixed(2) : "?"}`,
-
-    `iframe.left: ${ir ? ir.left.toFixed(2) : "?"}`,
-
-    `iframe.width: ${ir ? ir.width.toFixed(2) : "?"}`
-
-  ].join("\n");
-
-}
+  
 async function turnPage(direction) {
 
   if (direction === "next") {
