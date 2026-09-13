@@ -119,12 +119,46 @@ function showDiagnostic() {
   let overflowX = "?";
 
   let stageOverflowX = "?";
+  let columnWidth = "?";
+
+let columnGap = "?";
+
+let columnCount = "?";
+
+let bodyCssWidth = "?";
+
+let bodyTransform = "?";
+
+let bodyMarginLeft = "?";
 
   try {
 
     if (v && v.iframe && v.iframe.contentDocument) {
 
       const doc = v.iframe.contentDocument;
+      const bodyStyle =
+
+  doc.body
+
+    ? getComputedStyle(doc.body)
+
+    : null;
+
+if (bodyStyle) {
+
+  columnWidth = bodyStyle.columnWidth;
+
+  columnGap = bodyStyle.columnGap;
+
+  columnCount = bodyStyle.columnCount;
+
+  bodyCssWidth = bodyStyle.width;
+
+  bodyTransform = bodyStyle.transform;
+
+  bodyMarginLeft = bodyStyle.marginLeft;
+
+}
 
       docWidth = doc.documentElement
 
@@ -311,6 +345,17 @@ function showDiagnostic() {
     `doc.scrollWidth  : ${docWidth}`,
 
     `body.scrollWidth : ${bodyWidth}`
+    `columnWidth      : ${columnWidth}`,
+
+`columnGap        : ${columnGap}`,
+
+`columnCount      : ${columnCount}`,
+
+`body.css.width   : ${bodyCssWidth}`,
+
+`body.transform   : ${bodyTransform}`,
+
+`body.marginLeft  : ${bodyMarginLeft}`
 
   ].join("\n");
 
