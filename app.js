@@ -344,7 +344,7 @@ if (bodyStyle) {
 
     `doc.scrollWidth  : ${docWidth}`,
 
-    `body.scrollWidth : ${bodyWidth}`
+    `body.scrollWidth : ${bodyWidth}`,
     `columnWidth      : ${columnWidth}`,
 
 `columnGap        : ${columnGap}`,
