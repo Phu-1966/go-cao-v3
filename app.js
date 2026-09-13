@@ -90,9 +90,65 @@ function showDiagnostic() {
 
   const v = m && m.views && m.views.last();
 
-  const vr = v && v.element ? v.element.getBoundingClientRect() : null;
+  const vr = v && v.element
 
-  const ir = v && v.iframe ? v.iframe.getBoundingClientRect() : null;
+    ? v.element.getBoundingClientRect()
+
+    : null;
+
+  const ir = v && v.iframe
+
+    ? v.iframe.getBoundingClientRect()
+
+    : null;
+
+  let docWidth = "?";
+
+  let bodyWidth = "?";
+
+  let iframeStyleWidth = "?";
+
+  let viewStyleWidth = "?";
+
+  try {
+
+    if (v && v.iframe && v.iframe.contentDocument) {
+
+      const doc = v.iframe.contentDocument;
+
+      docWidth = doc.documentElement
+
+        ? doc.documentElement.scrollWidth
+
+        : "?";
+
+      bodyWidth = doc.body
+
+        ? doc.body.scrollWidth
+
+        : "?";
+
+    }
+
+    if (v && v.iframe) {
+
+      iframeStyleWidth = v.iframe.style.width || "(auto)";
+
+    }
+
+    if (v && v.element) {
+
+      viewStyleWidth = v.element.style.width || "(auto)";
+
+    }
+
+  } catch (e) {
+
+    docWidth = "blocked";
+
+    bodyWidth = "blocked";
+
+  }
 
   let box = document.getElementById("epubDiagnostic");
 
@@ -135,6 +191,42 @@ function showDiagnostic() {
     document.body.appendChild(box);
 
   }
+
+  box.textContent = [
+
+    "EPUB DIAGNOSTIC",
+
+    `scrollLeft       : ${c ? c.scrollLeft : "?"}`,
+
+    `scrollWidth      : ${c ? c.scrollWidth : "?"}`,
+
+    `clientWidth      : ${c ? c.clientWidth : "?"}`,
+
+    `delta            : ${l ? l.delta : "?"}`,
+
+    `pageWidth        : ${l ? l.pageWidth : "?"}`,
+
+    `divisor           : ${l ? l.divisor : "?"}`,
+
+    `view.left         : ${vr ? vr.left.toFixed(2) : "?"}`,
+
+    `view.width        : ${vr ? vr.width.toFixed(2) : "?"}`,
+
+    `view.style.width  : ${viewStyleWidth}`,
+
+    `iframe.left       : ${ir ? ir.left.toFixed(2) : "?"}`,
+
+    `iframe.width      : ${ir ? ir.width.toFixed(2) : "?"}`,
+
+    `iframe.style.width: ${iframeStyleWidth}`,
+
+    `doc.scrollWidth   : ${docWidth}`,
+
+    `body.scrollWidth  : ${bodyWidth}`
+
+  ].join("\n");
+
+}
 
   box.textContent = [
 
