@@ -92,18 +92,6 @@ async function turnPage(direction) {
 
   }
 
-  await new Promise(resolve => requestAnimationFrame(resolve));
-
-  const manager = rendition.manager;
-
-  const view = manager && manager.views && manager.views.last();
-
-  if (view && typeof view.expand === "function") {
-
-    view.expand();
-
-  }
-
 }
 document.getElementById("next").onclick = () => turnPage("next");
 
