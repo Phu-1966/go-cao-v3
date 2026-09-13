@@ -92,6 +92,18 @@ async function turnPage(direction) {
 
   }
 
+  await new Promise(resolve => requestAnimationFrame(resolve));
+
+  const manager = rendition.manager;
+
+  const view = manager && manager.views && manager.views.last();
+
+  if (view && view.iframe) {
+
+    view.iframe.removeAttribute("scrolling");
+
+  }
+
 }
 document.getElementById("next").onclick = () => turnPage("next");
 
