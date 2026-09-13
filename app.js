@@ -91,7 +91,7 @@ async function turnPage(direction) {
     await rendition.prev();
 
   }
-
+}
  
 document.getElementById("next").onclick = () => turnPage("next");
 
