@@ -90,6 +90,12 @@ function showDiagnostic() {
 
   const v = m && m.views && m.views.last();
 
+  const cr = c
+
+    ? c.getBoundingClientRect()
+
+    : null;
+
   const vr = v && v.element
 
     ? v.element.getBoundingClientRect()
@@ -109,6 +115,10 @@ function showDiagnostic() {
   let iframeStyleWidth = "?";
 
   let viewStyleWidth = "?";
+
+  let overflowX = "?";
+
+  let stageOverflowX = "?";
 
   try {
 
@@ -132,13 +142,33 @@ function showDiagnostic() {
 
     if (v && v.iframe) {
 
-      iframeStyleWidth = v.iframe.style.width || "(auto)";
+      iframeStyleWidth =
+
+        v.iframe.style.width || "(auto)";
 
     }
 
     if (v && v.element) {
 
-      viewStyleWidth = v.element.style.width || "(auto)";
+      viewStyleWidth =
+
+        v.element.style.width || "(auto)";
+
+    }
+
+    if (c) {
+
+      overflowX =
+
+        getComputedStyle(c).overflowX;
+
+    }
+
+    if (v && v.element) {
+
+      stageOverflowX =
+
+        getComputedStyle(v.element).overflowX;
 
     }
 
@@ -150,7 +180,9 @@ function showDiagnostic() {
 
   }
 
-  let box = document.getElementById("epubDiagnostic");
+  let box =
+
+    document.getElementById("epubDiagnostic");
 
   if (!box) {
 
@@ -196,33 +228,89 @@ function showDiagnostic() {
 
     "EPUB DIAGNOSTIC",
 
-    `scrollLeft       : ${c ? c.scrollLeft : "?"}`,
+    `container.left   : ${
 
-    `scrollWidth      : ${c ? c.scrollWidth : "?"}`,
+      cr ? cr.left.toFixed(2) : "?"
 
-    `clientWidth      : ${c ? c.clientWidth : "?"}`,
+    }`,
 
-    `delta            : ${l ? l.delta : "?"}`,
+    `container.width  : ${
 
-    `pageWidth        : ${l ? l.pageWidth : "?"}`,
+      cr ? cr.width.toFixed(2) : "?"
 
-    `divisor           : ${l ? l.divisor : "?"}`,
+    }`,
 
-    `view.left         : ${vr ? vr.left.toFixed(2) : "?"}`,
+    `overflowX        : ${overflowX}`,
 
-    `view.width        : ${vr ? vr.width.toFixed(2) : "?"}`,
+    `scrollLeft       : ${
 
-    `view.style.width  : ${viewStyleWidth}`,
+      c ? c.scrollLeft : "?"
 
-    `iframe.left       : ${ir ? ir.left.toFixed(2) : "?"}`,
+    }`,
 
-    `iframe.width      : ${ir ? ir.width.toFixed(2) : "?"}`,
+    `scrollWidth      : ${
+
+      c ? c.scrollWidth : "?"
+
+    }`,
+
+    `clientWidth      : ${
+
+      c ? c.clientWidth : "?"
+
+    }`,
+
+    `delta            : ${
+
+      l ? l.delta : "?"
+
+    }`,
+
+    `pageWidth        : ${
+
+      l ? l.pageWidth : "?"
+
+    }`,
+
+    `divisor          : ${
+
+      l ? l.divisor : "?"
+
+    }`,
+
+    `stage.left       : ${
+
+      vr ? vr.left.toFixed(2) : "?"
+
+    }`,
+
+    `stage.width      : ${
+
+      vr ? vr.width.toFixed(2) : "?"
+
+    }`,
+
+    `stage.overflowX  : ${stageOverflowX}`,
+
+    `view.style.width : ${viewStyleWidth}`,
+
+    `iframe.left      : ${
+
+      ir ? ir.left.toFixed(2) : "?"
+
+    }`,
+
+    `iframe.width     : ${
+
+      ir ? ir.width.toFixed(2) : "?"
+
+    }`,
 
     `iframe.style.width: ${iframeStyleWidth}`,
 
-    `doc.scrollWidth   : ${docWidth}`,
+    `doc.scrollWidth  : ${docWidth}`,
 
-    `body.scrollWidth  : ${bodyWidth}`
+    `body.scrollWidth : ${bodyWidth}`
 
   ].join("\n");
 
