@@ -17,6 +17,15 @@ gap: 0 ,
 });
 
 rendition.spread("none");
+rendition.hooks.content.register((contents) => {
+
+  if (contents.document && contents.document.body) {
+
+    contents.document.body.style.display = "inline-block";
+
+  }
+
+});
 
 
 let fontSize = 100;
