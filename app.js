@@ -47,7 +47,7 @@ rendition.display().then(() => {
                                
                                
 
-rendition.on("relocated", updateLocation);
+// rendition.on("relocated", updateLocation);
 
 let locationsReady;
 
