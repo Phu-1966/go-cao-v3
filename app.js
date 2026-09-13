@@ -82,17 +82,27 @@ async function updateLocation(cfi) {
 }
 async function turnPage(direction) {
 
-    if (direction === "next") {
+  if (direction === "next") {
 
-        await rendition.next();
+    await rendition.next();
 
-    } else {
+  } else {
 
-        await rendition.prev();
+    await rendition.prev();
 
-    }
+  }
 
-    
+  await new Promise(resolve => requestAnimationFrame(resolve));
+
+  const manager = rendition.manager;
+
+  const view = manager && manager.views && manager.views.last();
+
+  if (view && typeof view.expand === "function") {
+
+    view.expand();
+
+  }
 
 }
 document.getElementById("next").onclick = () => turnPage("next");
