@@ -80,6 +80,87 @@ async function updateLocation(cfi) {
     `Trang ${page} / ${totalPages}`;
 
 }
+function showDiagnostic() {
+
+  const m = rendition.manager;
+
+  const l = m && m.layout;
+
+  const c = m && m.container;
+
+  const v = m && m.views && m.views.last();
+
+  const vr = v && v.element ? v.element.getBoundingClientRect() : null;
+
+  const ir = v && v.iframe ? v.iframe.getBoundingClientRect() : null;
+
+  let box = document.getElementById("epubDiagnostic");
+
+  if (!box) {
+
+    box = document.createElement("pre");
+
+    box.id = "epubDiagnostic";
+
+    Object.assign(box.style, {
+
+      position: "fixed",
+
+      left: "8px",
+
+      right: "8px",
+
+      bottom: "8px",
+
+      zIndex: "99999",
+
+      margin: "0",
+
+      padding: "8px",
+
+      background: "rgba(0,0,0,.82)",
+
+      color: "#fff",
+
+      font: "12px/1.35 monospace",
+
+      whiteSpace: "pre-wrap",
+
+      borderRadius: "6px",
+
+      pointerEvents: "none"
+
+    });
+
+    document.body.appendChild(box);
+
+  }
+
+  box.textContent = [
+
+    "EPUB DIAGNOSTIC",
+
+    `scrollLeft : ${c ? c.scrollLeft : "?"}`,
+
+    `scrollWidth: ${c ? c.scrollWidth : "?"}`,
+
+    `delta      : ${l ? l.delta : "?"}`,
+
+    `pageWidth  : ${l ? l.pageWidth : "?"}`,
+
+    `divisor    : ${l ? l.divisor : "?"}`,
+
+    `view.left  : ${vr ? vr.left.toFixed(2) : "?"}`,
+
+    `view.width : ${vr ? vr.width.toFixed(2) : "?"}`,
+
+    `iframe.left: ${ir ? ir.left.toFixed(2) : "?"}`,
+
+    `iframe.width: ${ir ? ir.width.toFixed(2) : "?"}`
+
+  ].join("\n");
+
+}
 async function turnPage(direction) {
 
   if (direction === "next") {
@@ -91,6 +172,7 @@ async function turnPage(direction) {
     await rendition.prev();
 
   }
+  setTimeout(showDiagnostic, 300);
 }
  
 document.getElementById("next").onclick = () => turnPage("next");
