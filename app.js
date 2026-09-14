@@ -17,6 +17,37 @@ gap: 0 ,
 });
 
 rendition.spread("none");
+rendition.on("started", () => {
+
+  const manager = rendition.manager;
+
+  const View = manager && manager.View;
+
+  if (!View || !View.prototype || View.prototype.__iosScrollingFixed) {
+
+    return;
+
+  }
+
+  const originalCreate = View.prototype.create;
+
+  View.prototype.create = function () {
+
+    const iframe = originalCreate.apply(this, arguments);
+
+    if (iframe) {
+
+      iframe.removeAttribute("scrolling");
+
+    }
+
+    return iframe;
+
+  };
+
+  View.prototype.__iosScrollingFixed = true;
+
+});
 // Safari/iOS pagination workaround
 
 (function installSafariPaginationFix() {
@@ -88,13 +119,7 @@ rendition.spread("none");
     const html = doc && doc.documentElement;
 const body = doc && doc.body;
     if (html) {
-body.style.columnCount = "1";
 
-body.style.webkitColumnCount = "1";
-
-body.style.columnGap = "0px";
-
-body.style.webkitColumnGap = "0px";
       html.style.webkitTransform = "";
 
       html.style.willChange = "";
