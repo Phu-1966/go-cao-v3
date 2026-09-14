@@ -47,37 +47,53 @@ rendition.spread("none");
 
     }
 
-    function applyTransform(view, offset) {
+   function applyTransform(view, offset) {
 
-      if (!view || !view.element) return;
+  if (!view) return;
 
-      view.element.style.willChange = "transform";
+  const doc = view.contents && view.contents.document;
 
-      view.element.style.transform =
+  const body = doc && doc.body;
 
-        offset > 0
+  if (!body) return;
 
-          ? `translate3d(${-offset}px, 0, 0)`
+  body.style.willChange = "transform";
 
-          : "";
+  body.style.transform =
+
+    offset > 0
+
+      ? `translate3d(${-offset}px, 0, 0)`
+
+      : "";
+
+} 
+
+  function resetTransform() {
+
+  manager.views.forEach((view) => {
+
+    const doc = view.contents && view.contents.document;
+
+    const body = doc && doc.body;
+
+    if (body) {
+
+      body.style.transform = "";
+
+      body.style.willChange = "";
 
     }
 
-    function resetTransform() {
+    if (view && view.element) {
 
-      manager.views.forEach((view) => {
-
-        if (view && view.element) {
-
-          view.element.style.transform = "";
-
-          view.element.style.willChange = "";
-
-        }
-
-      });
+      view.element.style.transform = "";
 
     }
+
+  });
+
+}  
 
     const originalNext = manager.next.bind(manager);
 
