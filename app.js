@@ -47,19 +47,19 @@ rendition.spread("none");
 
     }
 
-   function applyTransform(view, offset) {
+ function applyTransform(view, offset) {
 
   if (!view) return;
 
   const doc = view.contents && view.contents.document;
 
-  const body = doc && doc.body;
+  const html = doc && doc.documentElement;
 
-  if (!body) return;
+  if (!html) return;
 
-  body.style.willChange = "transform";
+  html.style.willChange = "transform";
 
-  body.style.transform =
+  html.style.transform =
 
     offset > 0
 
@@ -67,7 +67,7 @@ rendition.spread("none");
 
       : "";
 
-} 
+}  
 
   function resetTransform() {
 
@@ -75,13 +75,13 @@ rendition.spread("none");
 
     const doc = view.contents && view.contents.document;
 
-    const body = doc && doc.body;
+    const html = doc && doc.documentElement;
 
-    if (body) {
+    if (html) {
 
-      body.style.transform = "";
+      html.style.transform = "";
 
-      body.style.willChange = "";
+      html.style.willChange = "";
 
     }
 
@@ -93,7 +93,7 @@ rendition.spread("none");
 
   });
 
-}  
+}
 
     const originalNext = manager.next.bind(manager);
 
