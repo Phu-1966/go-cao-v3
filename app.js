@@ -13,7 +13,7 @@ const rendition = book.renderTo("viewer", {
   spread: "none",
 gap: 0 ,
   manager: "default",
-
+contained: true,
 });
 
 rendition.spread("none");
