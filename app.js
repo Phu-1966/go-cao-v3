@@ -370,20 +370,38 @@ if (bodyStyle) {
 
 }
 
-  
+  let safariPageOffset = 0;
+
 async function turnPage(direction) {
 
   if (direction === "next") {
 
     await rendition.next();
 
+    safariPageOffset += 411;
+
   } else {
 
     await rendition.prev();
 
+    safariPageOffset = Math.max(0, safariPageOffset - 411);
+
   }
+
+  const stage = document.querySelector(".epub-stage");
+
+  if (stage) {
+
+    stage.style.transform =
+
+      `translateX(${-safariPageOffset}px)`;
+
+  }
+
   setTimeout(showDiagnostic, 300);
+
 }
+
  
 document.getElementById("next").onclick = () => turnPage("next");
 
