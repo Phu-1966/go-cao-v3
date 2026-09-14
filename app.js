@@ -59,7 +59,7 @@ rendition.spread("none");
 
   html.style.willChange = "transform";
 
-  html.style.transform =
+  html.style.webkitTransform =
 
     offset > 0
 
@@ -79,7 +79,7 @@ rendition.spread("none");
 
     if (html) {
 
-      html.style.transform = "";
+      html.style.webkitTransform = "";
 
       html.style.willChange = "";
 
