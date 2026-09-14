@@ -17,15 +17,201 @@ gap: 0 ,
 });
 
 rendition.spread("none");
-rendition.hooks.content.register((contents) => {
+// Safari/iOS pagination workaround
 
-  if (contents.document && contents.document.body) {
+(function installSafariPaginationFix() {
 
-    contents.document.body.style.display = "inline-block";
+  const isIOS =
 
-  }
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
 
-});
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  if (!isIOS) return;
+
+  rendition.on("started", () => {
+
+    const manager = rendition.manager;
+
+    if (!manager || manager.__safariPaginationFixed) return;
+
+    manager.__safariPaginationFixed = true;
+
+    let virtualOffset = 0;
+
+    function currentView() {
+
+      return manager.current() ||
+
+        (manager.views && manager.views.last && manager.views.last());
+
+    }
+
+    function applyTransform(view, offset) {
+
+      if (!view || !view.element) return;
+
+      view.element.style.willChange = "transform";
+
+      view.element.style.transform =
+
+        offset > 0
+
+          ? `translate3d(${-offset}px, 0, 0)`
+
+          : "";
+
+    }
+
+    function resetTransform() {
+
+      manager.views.forEach((view) => {
+
+        if (view && view.element) {
+
+          view.element.style.transform = "";
+
+          view.element.style.willChange = "";
+
+        }
+
+      });
+
+    }
+
+    const originalNext = manager.next.bind(manager);
+
+    const originalPrev = manager.prev.bind(manager);
+
+    manager.next = async function () {
+
+      if (
+
+        !this.isPaginated ||
+
+        this.settings.axis !== "horizontal" ||
+
+        this.settings.direction === "rtl"
+
+      ) {
+
+        return originalNext();
+
+      }
+
+      const view = currentView();
+
+      if (!view) {
+
+        return originalNext();
+
+      }
+
+      const delta = this.layout.delta;
+
+      const width = view.width();
+
+      // Still inside the current section:
+
+      if (virtualOffset + delta < width - 1) {
+
+        virtualOffset += delta;
+
+        applyTransform(view, virtualOffset);
+
+        return;
+
+      }
+
+      // We are on the last page.
+
+      // Temporarily restore the real scroll position so the original
+
+      // manager knows that it must move to the next section.
+
+      this.ignore = true;
+
+      this.container.scrollLeft = virtualOffset;
+
+      const result = await originalNext();
+
+      // New section starts at page 1.
+
+      virtualOffset = 0;
+
+      this.container.scrollLeft = 0;
+
+      resetTransform();
+
+      return result;
+
+    };
+
+    manager.prev = async function () {
+
+      if (
+
+        !this.isPaginated ||
+
+        this.settings.axis !== "horizontal" ||
+
+        this.settings.direction === "rtl"
+
+      ) {
+
+        return originalPrev();
+
+      }
+
+      const view = currentView();
+
+      if (!view) {
+
+        return originalPrev();
+
+      }
+
+      const delta = this.layout.delta;
+
+      // Still inside the current section.
+
+      if (virtualOffset > 0) {
+
+        virtualOffset = Math.max(0, virtualOffset - delta);
+
+        applyTransform(view, virtualOffset);
+
+        return;
+
+      }
+
+      // We are on the first page.
+
+      // Let the original manager load the previous section.
+
+      this.container.scrollLeft = 0;
+
+      const result = await originalPrev();
+
+      // Previous section is positioned on its last page by the manager.
+
+      const logicalOffset = this.container.scrollLeft;
+
+      virtualOffset = Math.max(0, logicalOffset);
+
+      this.container.scrollLeft = 0;
+
+      const newView = currentView();
+
+      applyTransform(newView, virtualOffset);
+
+      return result;
+
+    };
+
+  });
+
+})();
 
 
 let fontSize = 100;
@@ -379,24 +565,6 @@ if (bodyStyle) {
   } else {
 
     await rendition.prev();
-
-  }
-
-  const manager = rendition.manager;
-
-  const container = manager && manager.container;
-
-  const view = manager && manager.views && manager.views.last();
-
-  if (container && view && view.element) {
-
-    const offset = container.scrollLeft;
-
-    container.scrollLeft = 0;
-
-    view.element.style.transform =
-
-      `translateX(${-offset}px)`;
 
   }
 
