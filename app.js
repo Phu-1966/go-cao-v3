@@ -13,7 +13,7 @@ const rendition = book.renderTo("viewer", {
   spread: "none",
 gap: 0 ,
   manager: "default",
-contained: true,
+
 });
 
 rendition.spread("none");
@@ -111,26 +111,21 @@ rendition.on("started", () => {
 
    function applyTransform(view, offset) {
 
-  if (!view) return;
+  if (!view || !view.iframe) return;
 
-  const doc = view.contents && view.contents.document;
+  const iframe = view.iframe;
 
-  const html = doc && doc.documentElement;
+  iframe.style.willChange = "transform";
 
-  if (!html) return;
+  iframe.style.transform =
 
-  const pageWidth = manager.layout && manager.layout.pageWidth;
+    offset > 0
 
-  if (pageWidth) {
+      ? `translate3d(${-offset}px, 0, 0)`
 
-    html.style.columnCount = "1";
+      : "";
 
-    html.style.columnWidth = `${pageWidth}px`;
-
-    html.style.columnGap = "0px";
-
-  }
-
+}
   html.style.webkitTransform =
 
     offset > 0
@@ -145,23 +140,17 @@ rendition.on("started", () => {
 
   manager.views.forEach((view) => {
 
-    const doc = view.contents && view.contents.document;
+    if (view && view.iframe) {
 
-    const html = doc && doc.documentElement;
-const body = doc && doc.body;
-    if (html) {
+      view.iframe.style.transform = "";
 
-      html.style.webkitTransform = "";
-
-      html.style.willChange = "";
-
-      html.style.columnCount = "";
-
-      html.style.columnWidth = "";
-
-      html.style.columnGap = "";
+      view.iframe.style.willChange = "";
 
     }
+
+  });
+
+}
 
     if (view && view.element) {
 
