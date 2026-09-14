@@ -47,7 +47,7 @@ rendition.spread("none");
 
     }
 
- function applyTransform(view, offset) {
+   function applyTransform(view, offset) {
 
   if (!view) return;
 
@@ -57,7 +57,17 @@ rendition.spread("none");
 
   if (!html) return;
 
-  html.style.willChange = "transform";
+  const pageWidth = manager.layout && manager.layout.pageWidth;
+
+  if (pageWidth) {
+
+    html.style.columnCount = "1";
+
+    html.style.columnWidth = `${pageWidth}px`;
+
+    html.style.columnGap = "0px";
+
+  }
 
   html.style.webkitTransform =
 
@@ -67,7 +77,7 @@ rendition.spread("none");
 
       : "";
 
-}  
+}
 
   function resetTransform() {
 
@@ -83,6 +93,12 @@ rendition.spread("none");
 
       html.style.willChange = "";
 
+      html.style.columnCount = "";
+
+      html.style.columnWidth = "";
+
+      html.style.columnGap = "";
+
     }
 
     if (view && view.element) {
@@ -94,6 +110,8 @@ rendition.spread("none");
   });
 
 }
+
+    
 
     const originalNext = manager.next.bind(manager);
 
