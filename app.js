@@ -86,9 +86,15 @@ rendition.spread("none");
     const doc = view.contents && view.contents.document;
 
     const html = doc && doc.documentElement;
-
+const body = doc && doc.body;
     if (html) {
+body.style.columnCount = "1";
 
+body.style.webkitColumnCount = "1";
+
+body.style.columnGap = "0px";
+
+body.style.webkitColumnGap = "0px";
       html.style.webkitTransform = "";
 
       html.style.willChange = "";
