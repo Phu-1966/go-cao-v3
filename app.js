@@ -370,38 +370,39 @@ if (bodyStyle) {
 
 }
 
-  let safariPageOffset = 0;
-
-async function turnPage(direction) {
+  async function turnPage(direction) {
 
   if (direction === "next") {
 
     await rendition.next();
 
-    safariPageOffset += 411;
-
   } else {
 
     await rendition.prev();
 
-    safariPageOffset = Math.max(0, safariPageOffset - 411);
-
   }
 
-  const stage = document.querySelector(".epub-stage");
+  const manager = rendition.manager;
 
-  if (stage) {
+  const container = manager && manager.container;
 
-    stage.style.transform =
+  const view = manager && manager.views && manager.views.last();
 
-      `translateX(${-safariPageOffset}px)`;
+  if (container && view && view.element) {
+
+    const offset = container.scrollLeft;
+
+    container.scrollLeft = 0;
+
+    view.element.style.transform =
+
+      `translateX(${-offset}px)`;
 
   }
 
   setTimeout(showDiagnostic, 300);
 
 }
-
  
 document.getElementById("next").onclick = () => turnPage("next");
 
