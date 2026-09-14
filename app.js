@@ -48,6 +48,37 @@ rendition.on("started", () => {
   View.prototype.__iosScrollingFixed = true;
 
 });
+rendition.on("started", () => {
+
+  const manager = rendition.manager;
+
+  const View = manager && manager.View;
+
+  if (!View || !View.prototype || View.prototype.__iosScrollingFixed) {
+
+    return;
+
+  }
+
+  const originalCreate = View.prototype.create;
+
+  View.prototype.create = function () {
+
+    const iframe = originalCreate.apply(this, arguments);
+
+    if (iframe) {
+
+      iframe.removeAttribute("scrolling");
+
+    }
+
+    return iframe;
+
+  };
+
+  View.prototype.__iosScrollingFixed = true;
+
+});
 // Safari/iOS pagination workaround
 
 (function installSafariPaginationFix() {
