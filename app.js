@@ -108,7 +108,14 @@ rendition.on("started", () => {
         (manager.views && manager.views.last && manager.views.last());
 
     }
+    
+const view = currentView();
 
+if (view && view.element) {
+
+  view.element.style.contain = "none";
+
+}
    function applyTransform(view, offset) {
 
   if (!view || !view.element) return;
@@ -116,7 +123,7 @@ rendition.on("started", () => {
   view.element.style.willChange = "transform";
 
   view.element.style.transform =
-
+view.element.style.contain = "none";
     offset > 0
 
       ? `translate3d(${-offset}px, 0, 0)`
