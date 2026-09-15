@@ -111,13 +111,11 @@ rendition.on("started", () => {
 
    function applyTransform(view, offset) {
 
-  if (!view || !view.iframe) return;
+  if (!view || !view.element) return;
 
-  const iframe = view.iframe;
+  view.element.style.willChange = "transform";
 
-  iframe.style.willChange = "transform";
-
-  iframe.style.transform =
+  view.element.style.transform =
 
     offset > 0
 
@@ -140,11 +138,11 @@ rendition.on("started", () => {
 
   manager.views.forEach((view) => {
 
-    if (view && view.iframe) {
+    if (view && view.element) {
 
-      view.iframe.style.transform = "";
+      view.element.style.transform = "";
 
-      view.iframe.style.willChange = "";
+      view.element.style.willChange = "";
 
     }
 
