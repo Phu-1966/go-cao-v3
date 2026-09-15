@@ -109,13 +109,7 @@ rendition.on("started", () => {
 
     }
     
-const view = currentView();
 
-if (view && view.element) {
-
-  
-
-}
    
   function applyTransform(view, offset) {
 
@@ -150,7 +144,7 @@ if (view && view.element) {
 
 
     
-}
+
 
     
 
