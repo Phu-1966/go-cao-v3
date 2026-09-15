@@ -124,15 +124,7 @@ rendition.on("started", () => {
       : "";
 
 }
-  html.style.webkitTransform =
-
-    offset > 0
-
-      ? `translate3d(${-offset}px, 0, 0)`
-
-      : "";
-
-}
+  
 
   function resetTransform() {
 
@@ -148,16 +140,9 @@ rendition.on("started", () => {
 
   });
 
-}
 
-    if (view && view.element) {
 
-      view.element.style.transform = "";
-
-    }
-
-  });
-
+    
 }
 
     
