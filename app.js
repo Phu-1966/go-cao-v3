@@ -121,9 +121,15 @@ if (view && view.element) {
 
   if (!view || !view.element) return;
 
-  view.element.style.willChange = "";
+  view.element.style.willChange = "transform";
 
-  view.element.style.transform = "";
+  view.element.style.transform =
+
+    offset > 0
+
+      ? `translate3d(${-offset}px, 0, 0)`
+
+      : "";
 
 }
 
