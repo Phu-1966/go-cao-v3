@@ -113,25 +113,19 @@ const view = currentView();
 
 if (view && view.element) {
 
-  view.element.style.contain = "none";
+  
 
 }
-   function applyTransform(view, offset) {
+   
+  function applyTransform(view, offset) {
 
   if (!view || !view.element) return;
 
-  view.element.style.willChange = "transform";
+  view.element.style.willChange = "";
 
-  view.element.style.transform =
-view.element.style.contain = "none";
-    offset > 0
-
-      ? `translate3d(${-offset}px, 0, 0)`
-
-      : "";
+  view.element.style.transform = "";
 
 }
-  
 
   function resetTransform() {
 
