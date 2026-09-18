@@ -23,7 +23,7 @@ rendition.hooks.content.register(contents => {
 
     "body": {
 
-      "padding-left": "24px !important"
+      "transform": "translateX(12px)"
 
     }
 
