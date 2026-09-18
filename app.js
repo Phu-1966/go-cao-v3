@@ -17,7 +17,19 @@ gap: 0 ,
 });
 
 rendition.spread("none");
+rendition.hooks.content.register(contents => {
 
+  contents.addStylesheetRules({
+
+    "body": {
+
+      "padding-left": "12px !important"
+
+    }
+
+  });
+
+});
 
 let fontSize = 100;
 
