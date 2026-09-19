@@ -44,8 +44,6 @@ rendition.hooks.content.register(contents => {
     );
 
   });
-
-});
 const isTocPage = doc.body.innerText.includes("MỤC LỤC");
 
 if (isTocPage) {
@@ -59,6 +57,8 @@ if (isTocPage) {
   });
 
 }
+});
+
 let fontSize = 100;
 
 function renderToc(items, parent) {
