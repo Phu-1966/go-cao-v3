@@ -23,9 +23,9 @@ rendition.hooks.content.register(contents => {
 
     "body": {
 
-      "padding-left": "18px !important",
+      "padding-left": "32px !important",
 
-      "padding-right": "18px !important",
+      "padding-right": "28px !important",
 
       "box-sizing": "border-box !important"
 
