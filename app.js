@@ -23,20 +23,29 @@ rendition.hooks.content.register(contents => {
 
   doc.querySelectorAll("p").forEach(p => {
 
-    p.style.setProperty("padding-left", "24px", "important");
+    p.style.setProperty(
 
-    p.style.setProperty("padding-right", "22px", "important");
+      "padding-left",
+
+      "24px",
+
+      "important"
+
+    );
+
+    p.style.setProperty(
+
+      "padding-right",
+
+      "22px",
+
+      "important"
+
+    );
 
   });
 
-
-"#toc": {
-
-  "padding-left": "34px !important",
-
-  "padding-right": "30px !important"
-
-}
+});
 let fontSize = 100;
 
 function renderToc(items, parent) {
