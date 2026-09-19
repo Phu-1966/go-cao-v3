@@ -30,7 +30,13 @@ rendition.hooks.content.register(contents => {
   });
 
 });
+"#toc": {
 
+  "padding-left": "34px !important",
+
+  "padding-right": "30px !important"
+
+}
 let fontSize = 100;
 
 function renderToc(items, parent) {
