@@ -23,9 +23,9 @@ rendition.hooks.content.register(contents => {
 
   doc.querySelectorAll("p").forEach(p => {
 
-    p.style.setProperty("padding-left", "20px", "important");
+    p.style.setProperty("padding-left", "24px", "important");
 
-    p.style.setProperty("padding-right", "18px", "important");
+    p.style.setProperty("padding-right", "22px", "important");
 
   });
 
