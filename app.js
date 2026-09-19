@@ -19,17 +19,13 @@ gap: 0 ,
 rendition.spread("none");
 rendition.hooks.content.register(contents => {
 
-  contents.addStylesheetRules({
+  const doc = contents.document;
 
-    "body": {
+  doc.querySelectorAll("p").forEach(p => {
 
-      "padding-left": "32px !important",
+    p.style.setProperty("padding-left", "12px", "important");
 
-      "padding-right": "28px !important",
-
-      "box-sizing": "border-box !important"
-
-    }
+    p.style.setProperty("padding-right", "8px", "important");
 
   });
 
