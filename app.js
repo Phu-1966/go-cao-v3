@@ -17,7 +17,23 @@ gap: 0 ,
 });
 
 rendition.spread("none");
+rendition.hooks.content.register(contents => {
 
+  contents.addStylesheetRules({
+
+    "body": {
+
+      "padding-left": "12px !important",
+
+      "padding-right": "12px !important",
+
+      "box-sizing": "border-box !important"
+
+    }
+
+  });
+
+});
 
 let fontSize = 100;
 
