@@ -46,6 +46,19 @@ rendition.hooks.content.register(contents => {
   });
 
 });
+const isTocPage = doc.body.innerText.includes("MỤC LỤC");
+
+if (isTocPage) {
+
+  doc.querySelectorAll("a").forEach(a => {
+
+    a.style.display = "block";
+
+    a.style.marginLeft = "28px";
+
+  });
+
+}
 let fontSize = 100;
 
 function renderToc(items, parent) {
