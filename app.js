@@ -17,16 +17,24 @@ gap: 0 ,
 });
 
 rendition.spread("none");
-
 rendition.hooks.content.register(contents => {
 
-  const body = contents.document.body;
+  contents.addStylesheetRules({
 
-  body.style.marginLeft = "18px";
+    "body": {
 
-  body.style.marginRight = "10px";
+      "padding-left": "18px !important",
+
+      "padding-right": "18px !important",
+
+      "box-sizing": "border-box !important"
+
+    }
+
+  });
 
 });
+
 let fontSize = 100;
 
 function renderToc(items, parent) {
