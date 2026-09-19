@@ -29,7 +29,7 @@ rendition.hooks.content.register(contents => {
 
   });
 
-});
+
 "#toc": {
 
   "padding-left": "34px !important",
