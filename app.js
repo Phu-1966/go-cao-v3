@@ -17,19 +17,7 @@ gap: 0 ,
 });
 
 rendition.spread("none");
-rendition.hooks.content.register(contents => {
 
-  contents.addStylesheetRules({
-
-    "body": {
-
-      "transform": "translateX(12px)"
-
-    }
-
-  });
-
-});
 
 let fontSize = 100;
 
