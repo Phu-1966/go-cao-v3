@@ -51,6 +51,7 @@ let fontSize = 100;
 function renderToc(items, parent) {
   items.forEach(item => {
     const a = document.createElement("a");
+    a.style.marginLeft = "12px";
     a.textContent = item.label;
     a.href = "#";
     a.onclick = e => { e.preventDefault(); rendition.display(item.href); };
