@@ -53,7 +53,13 @@ if (isTocPage) {
     a.style.display = "block";
 
     a.style.marginLeft = "28px";
+a.addEventListener("click", e => {
 
+      e.preventDefault();
+
+      rendition.display(a.getAttribute("href"));
+
+    });
   });
 
 }
