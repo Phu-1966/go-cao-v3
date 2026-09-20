@@ -55,7 +55,7 @@ if (isTocPage) {
     a.style.marginLeft = "28px";
 
   });
-rendition.handleLinks(contents);
+
 }
 });
 
