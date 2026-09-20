@@ -422,14 +422,27 @@ document.getElementById("fontMinus").onclick = () => {
 
 // Ten-page jump: walk ten paginated spreads in the current direction.
 async function jump(n) {
-  for (let i=0;i<Math.abs(n);i++) {
-  if (n > 0) await rendition.next();
 
-else await rendition.prev();
+  for (let i = 0; i < Math.abs(n); i++) {
 
+    if (n > 0) {
 
-  
+      await rendition.next();
+
+      currentPage = Math.min(totalPages, currentPage + 1);
+
+    } else {
+
+      await rendition.prev();
+
+      currentPage = Math.max(1, currentPage - 1);
+
+    }
+
   }
+
+  updateLocation();
+
 }
 document.getElementById("forward10").onclick = () => jump(10);
 document.getElementById("back10").onclick = () => jump(-10);
