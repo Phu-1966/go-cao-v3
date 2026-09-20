@@ -131,19 +131,7 @@ async function updateLocation(cfi) {
     `Trang ${page} / ${totalPages}`;
 
 }
-  const page = Math.min(
-
-    totalPages,
-
-    Math.max(1, Math.floor(percent * totalPages) + 1)
-
-  );
-
-  document.getElementById("location").textContent =
-
-    `Trang ${page} / ${totalPages}`;
-
-}
+  
 function showDiagnostic() {
 
   const m = rendition.manager;
