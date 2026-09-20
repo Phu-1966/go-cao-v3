@@ -88,7 +88,7 @@ rendition.display().then(() => {
                                
                                
 
-rendition.on("relocated", updateLocation);
+
 
 let currentPage = 1;
 
