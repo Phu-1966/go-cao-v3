@@ -67,7 +67,17 @@ function renderToc(items, parent) {
     a.style.marginLeft = "20px";
     a.textContent = item.label;
     a.href = "#";
-    a.onclick = e => { e.preventDefault(); rendition.display(item.href); };
+    a.onclick = async e => {
+
+  e.preventDefault();
+
+  if (item.label.trim() === "Chương 1. Chiếc gương soi từ tự nhiên") {
+
+    await jump(20 - currentPage);
+
+  }
+
+};
     parent.appendChild(a);
     if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
   });
