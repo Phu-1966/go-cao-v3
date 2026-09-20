@@ -73,18 +73,67 @@ function renderToc(items, parent) {
   });
 }
 
-book.ready.then(() => {
-  document.querySelector(".loading").remove();
-  return book.loaded.navigation;
-}).then(nav => renderToc(nav.toc, document.getElementById("toc")));
+book.ready
 
-rendition.display().then(() => {
+  .then(() => {
 
-  
+    const loading = document.querySelector(".loading");
 
-  updateLocation();
-  
-});
+    if (loading) loading.remove();
+
+    return book.loaded.navigation;
+
+  })
+
+  .then(nav => {
+
+    renderToc(nav.toc, document.getElementById("toc"));
+
+  })
+
+  .catch(err => {
+
+    console.error("EPUB ERROR:", err);
+
+    const loading = document.querySelector(".loading");
+
+    if (loading) {
+
+      loading.textContent =
+
+        "Lỗi mở sách: " +
+
+        (err && err.message ? err.message : String(err));
+
+    }
+
+  });
+
+rendition.display()
+
+  .then(() => {
+
+    updateLocation();
+
+  })
+
+  .catch(err => {
+
+    console.error("RENDITION ERROR:", err);
+
+    const loading = document.querySelector(".loading");
+
+    if (loading) {
+
+      loading.textContent =
+
+        "Lỗi hiển thị sách: " +
+
+        (err && err.message ? err.message : String(err));
+
+    }
+
+  });
                                
                                
 
