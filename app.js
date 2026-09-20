@@ -383,40 +383,57 @@ if (bodyStyle) {
 
 }
 
-  async function turnPage(direction) {
+let isTurning = false;
 
-  if (direction === "next") {
+async function turnPage(direction) {
 
-    if (currentPage >= totalPages) {
+  if (isTurning) {
 
-      return;
+    return;
+
+  }
+
+  isTurning = true;
+
+  try {
+
+    if (direction === "next") {
+
+      if (currentPage >= totalPages) {
+
+        return;
+
+      }
+
+      await rendition.next();
+
+      currentPage += 1;
+
+      updateLocation();
+
+    } else {
+
+      if (currentPage <= 1) {
+
+        return;
+
+      }
+
+      await rendition.prev();
+
+      currentPage -= 1;
+
+      updateLocation();
 
     }
 
-    await rendition.next();
+  } finally {
 
-    currentPage += 1;
-
-    updateLocation();
-
-  } else {
-
-    if (currentPage <= 1) {
-
-      return;
-
-    }
-
-    await rendition.prev();
-
-    currentPage -= 1;
-
-    updateLocation();
+    isTurning = false;
 
   }
 
 }
-
 
     
 
