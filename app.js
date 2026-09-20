@@ -56,27 +56,8 @@ doc.querySelectorAll("a").forEach(a => {
   a.style.marginLeft = "28px";
 
 });
-
-doc.addEventListener("click", e => {
-
-  const a = e.target.closest("a");
-
-  if (!a) return;
-
-  e.preventDefault();
-
-  alert(
-
-    a.textContent.trim() +
-
-    "\n" +
-
-    a.getAttribute("href")
-
-  );
-
-}, true);
 }
+
 });
 
 let fontSize = 100;
