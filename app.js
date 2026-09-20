@@ -67,61 +67,7 @@ function renderToc(items, parent) {
     a.style.marginLeft = "20px";
     a.textContent = item.label;
     a.href = "#";
-    a.onclick = async e => {
-
-  e.preventDefault();
-
-  const pageMap = {
-
-    "Lời mở đầu": 3,
-
-    "PHẦN I – TỪ BẢN NĂNG ĐẾN TRÍ TUỆ": 13,
-
-    "Chương 1. Chiếc gương soi từ tự nhiên": 20,
-
-    "Chương 2. Hệ sinh thái thông minh": 31,
-
-    "Chương 3. Bẫy của sự co cứng": 40,
-
-    "PHẦN II – BẢN ĐỒ NHẬN THỨC MỚI": 49,
-
-    "Chương 4. Độ mở của nhận thức": 58,
-
-    "Chương 5. Sống tận cùng, sống ngây thơ": 69,
-
-    "Chương 6. Trí tuệ liên kết": 80,
-
-    "PHẦN III – CHIẾN LƯỢC CỘNG SINH": 91,
-
-    "Chương 7. Vùng nước trong": 99,
-
-    "Chương 8. Quản trị sự biến đổi": 109,
-
-    "Chương 9. Nghệ thuật từ chối thông minh": 119,
-
-    "PHẦN IV – DÒNG CHẢY VÀ DI SẢN": 129,
-
-    "Chương 10. Dòng sông cuộc đời": 138,
-
-    "Chương 11. Khi ranh giới mềm đi": 148,
-
-    "Khoảng lặng cuối": 156,
-
-    "Lời cảm ơn": 162
-
-  };
-
-  const targetPage = pageMap[item.label.trim()];
-
-  if (!targetPage) {
-
-    return;
-
-  }
-
-  await jump(targetPage - currentPage);
-
-};
+    a.onclick = e => { e.preventDefault(); rendition.display(item.href); };
     parent.appendChild(a);
     if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
   });
