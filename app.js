@@ -1,5 +1,5 @@
 
-const book = ePub(./"SU_ICH_KY_THONG_MINH_FINAL_V2.epub", {});
+const book = ePub("SU_ICH_KY_THONG_MINH_FINAL_V2.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
@@ -73,67 +73,18 @@ function renderToc(items, parent) {
   });
 }
 
-book.ready
+book.ready.then(() => {
+  document.querySelector(".loading").remove();
+  return book.loaded.navigation;
+}).then(nav => renderToc(nav.toc, document.getElementById("toc")));
 
-  .then(() => {
+rendition.display().then(() => {
 
-    const loading = document.querySelector(".loading");
+  
 
-    if (loading) loading.remove();
-
-    return book.loaded.navigation;
-
-  })
-
-  .then(nav => {
-
-    renderToc(nav.toc, document.getElementById("toc"));
-
-  })
-
-  .catch(err => {
-
-    console.error("EPUB ERROR:", err);
-
-    const loading = document.querySelector(".loading");
-
-    if (loading) {
-
-      loading.textContent =
-
-        "Lỗi mở sách: " +
-
-        (err && err.message ? err.message : String(err));
-
-    }
-
-  });
-
-rendition.display()
-
-  .then(() => {
-
-    updateLocation();
-
-  })
-
-  .catch(err => {
-
-    console.error("RENDITION ERROR:", err);
-
-    const loading = document.querySelector(".loading");
-
-    if (loading) {
-
-      loading.textContent =
-
-        "Lỗi hiển thị sách: " +
-
-        (err && err.message ? err.message : String(err));
-
-    }
-
-  });
+  updateLocation();
+  
+});
                                
                                
 
@@ -141,7 +92,7 @@ rendition.on("relocated", updateLocation);
 
 let currentPage = 1;
 
-let totalPages = 357;
+const totalPages = 357;
 
 function updateLocation() {
 
@@ -438,19 +389,22 @@ if (bodyStyle) {
 
     await rendition.next();
 
-    currentPage = Math.min(totalPages, currentPage + 1);
+currentPage = Math.min(totalPages, currentPage + 1);
 
-    updateLocation();
+updateLocation();
 
   } else {
 
     await rendition.prev();
 
-    currentPage = Math.max(1, currentPage - 1);
+currentPage = Math.max(1, currentPage - 1);
 
-    updateLocation();
+updateLocation();
 
   }
+
+
+    
 
 }
  
@@ -467,7 +421,6 @@ document.getElementById("fontMinus").onclick = () => {
 };
 
 // Ten-page jump: walk ten paginated spreads in the current direction.
-
 async function jump(n) {
 
   for (let i = 0; i < Math.abs(n); i++) {
@@ -487,43 +440,6 @@ async function jump(n) {
     }
 
   }
-
-  updateLocation();
-
-}
-      await rendition.next();
-
-      currentPage += 1;
-
-      const newLoc = rendition.currentLocation();
-
-      if (newLoc && newLoc.atEnd) {
-
-        totalPages = currentPage;
-
-        break;
-
-      }
-
-    } else {
-
-      if (currentPage <= 1) {
-
-        break;
-
-      }
-
-      await rendition.prev();
-
-      currentPage -= 1;
-
-    }
-
-  }
-
-  updateLocation();
-
-}
 
   updateLocation();
 
