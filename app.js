@@ -104,10 +104,33 @@ async function updateLocation(cfi) {
 
   const loc = cfi || rendition.currentLocation();
 
-  const percent = book.locations.percentageFromCfi(loc?.start?.cfi);
+  if (!loc || !loc.start) return;
+
+  const percent =
+
+    book.locations.percentageFromCfi(loc.start.cfi);
 
   const totalPages = 357;
 
+  const page = Math.min(
+
+    totalPages,
+
+    Math.max(
+
+      1,
+
+      Math.floor(percent * totalPages) + 1
+
+    )
+
+  );
+
+  document.getElementById("location").textContent =
+
+    `Trang ${page} / ${totalPages}`;
+
+}
   const page = Math.min(
 
     totalPages,
