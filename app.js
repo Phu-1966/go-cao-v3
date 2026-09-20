@@ -75,7 +75,7 @@ doc.addEventListener("click", e => {
 
   );
 
-});
+}, true);
 }
 });
 
