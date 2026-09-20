@@ -48,22 +48,34 @@ const isTocPage = doc.body.innerText.includes("MỤC LỤC");
 
 if (isTocPage) {
 
- doc.querySelectorAll("a").forEach(a => {
+
+doc.querySelectorAll("a").forEach(a => {
 
   a.style.display = "block";
 
   a.style.marginLeft = "28px";
 
-  a.addEventListener("click", e => {
-
-    e.preventDefault();
-
-    alert(a.textContent.trim() + "\n" + a.getAttribute("href"));
-
-  });
-
 });
 
+doc.addEventListener("click", e => {
+
+  const a = e.target.closest("a");
+
+  if (!a) return;
+
+  e.preventDefault();
+
+  alert(
+
+    a.textContent.trim() +
+
+    "\n" +
+
+    a.getAttribute("href")
+
+  );
+
+});
 }
 });
 
