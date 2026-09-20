@@ -90,45 +90,15 @@ rendition.display().then(() => {
 
 rendition.on("relocated", updateLocation);
 
-let locationsReady;
+let currentPage = 1;
 
-async function updateLocation(cfi) {
+const totalPages = 357;
 
-  if (!locationsReady) {
-
-    locationsReady = book.locations.generate(1000);
-
-  }
-
-  await locationsReady;
-
-  const loc = cfi || rendition.currentLocation();
-
-  if (!loc || !loc.start) return;
-
-  const percent =
-
-    book.locations.percentageFromCfi(loc.start.cfi);
-
-  const totalPages = 357;
-
-  const page = Math.min(
-
-    totalPages,
-
-    Math.max(
-
-      1,
-
-      Math.floor(percent * totalPages) + 1
-
-    )
-
-  );
+function updateLocation() {
 
   document.getElementById("location").textContent =
 
-    `Trang ${page} / ${totalPages}`;
+    `Trang ${currentPage} / ${totalPages}`;
 
 }
   
@@ -419,9 +389,17 @@ if (bodyStyle) {
 
     await rendition.next();
 
+currentPage = Math.min(totalPages, currentPage + 1);
+
+updateLocation();
+
   } else {
 
     await rendition.prev();
+
+currentPage = Math.max(1, currentPage - 1);
+
+updateLocation();
 
   }
 
