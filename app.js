@@ -92,7 +92,7 @@ rendition.on("relocated", updateLocation);
 
 let currentPage = 1;
 
-const totalPages = 357;
+let totalPages = 357;
 
 function updateLocation() {
 
@@ -385,45 +385,19 @@ if (bodyStyle) {
 
   async function turnPage(direction) {
 
-  const loc = rendition.currentLocation();
-
   if (direction === "next") {
-
-    if (loc && loc.atEnd) {
-
-      totalPages = currentPage;
-
-      updateLocation();
-
-      return;
-
-    }
 
     await rendition.next();
 
-    currentPage += 1;
-
-    const newLoc = rendition.currentLocation();
-
-    if (newLoc && newLoc.atEnd) {
-
-      totalPages = currentPage;
-
-    }
+    currentPage = Math.min(totalPages, currentPage + 1);
 
     updateLocation();
 
   } else {
 
-    if (currentPage <= 1) {
-
-      return;
-
-    }
-
     await rendition.prev();
 
-    currentPage -= 1;
+    currentPage = Math.max(1, currentPage - 1);
 
     updateLocation();
 
@@ -449,18 +423,25 @@ async function jump(n) {
 
   for (let i = 0; i < Math.abs(n); i++) {
 
-    const loc = rendition.currentLocation();
-
     if (n > 0) {
 
-      if (loc && loc.atEnd) {
+      await rendition.next();
 
-        totalPages = currentPage;
+      currentPage = Math.min(totalPages, currentPage + 1);
 
-        break;
+    } else {
 
-      }
+      await rendition.prev();
 
+      currentPage = Math.max(1, currentPage - 1);
+
+    }
+
+  }
+
+  updateLocation();
+
+}
       await rendition.next();
 
       currentPage += 1;
