@@ -53,15 +53,9 @@ if (isTocPage) {
     a.style.display = "block";
 
     a.style.marginLeft = "28px";
-a.addEventListener("click", e => {
 
-      e.preventDefault();
-
-      rendition.display(a.getAttribute("href"));
-
-    });
   });
-
+rendition.handleLinks(contents);
 }
 });
 
@@ -391,26 +385,49 @@ if (bodyStyle) {
 
   async function turnPage(direction) {
 
+  const loc = rendition.currentLocation();
+
   if (direction === "next") {
+
+    if (loc && loc.atEnd) {
+
+      totalPages = currentPage;
+
+      updateLocation();
+
+      return;
+
+    }
 
     await rendition.next();
 
-currentPage = Math.min(totalPages, currentPage + 1);
+    currentPage += 1;
 
-updateLocation();
+    const newLoc = rendition.currentLocation();
+
+    if (newLoc && newLoc.atEnd) {
+
+      totalPages = currentPage;
+
+    }
+
+    updateLocation();
 
   } else {
 
+    if (currentPage <= 1) {
+
+      return;
+
+    }
+
     await rendition.prev();
 
-currentPage = Math.max(1, currentPage - 1);
+    currentPage -= 1;
 
-updateLocation();
+    updateLocation();
 
   }
-
-
-    
 
 }
  
@@ -427,25 +444,56 @@ document.getElementById("fontMinus").onclick = () => {
 };
 
 // Ten-page jump: walk ten paginated spreads in the current direction.
+
 async function jump(n) {
 
   for (let i = 0; i < Math.abs(n); i++) {
 
+    const loc = rendition.currentLocation();
+
     if (n > 0) {
+
+      if (loc && loc.atEnd) {
+
+        totalPages = currentPage;
+
+        break;
+
+      }
 
       await rendition.next();
 
-      currentPage = Math.min(totalPages, currentPage + 1);
+      currentPage += 1;
+
+      const newLoc = rendition.currentLocation();
+
+      if (newLoc && newLoc.atEnd) {
+
+        totalPages = currentPage;
+
+        break;
+
+      }
 
     } else {
 
+      if (currentPage <= 1) {
+
+        break;
+
+      }
+
       await rendition.prev();
 
-      currentPage = Math.max(1, currentPage - 1);
+      currentPage -= 1;
 
     }
 
   }
+
+  updateLocation();
+
+}
 
   updateLocation();
 
