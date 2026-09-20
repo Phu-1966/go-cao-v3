@@ -92,7 +92,7 @@ rendition.on("relocated", updateLocation);
 
 let currentPage = 1;
 
-const totalPages = 357;
+const totalPages = 169;
 
 function updateLocation() {
 
@@ -387,26 +387,40 @@ if (bodyStyle) {
 
   if (direction === "next") {
 
+    if (currentPage >= totalPages) {
+
+      return;
+
+    }
+
     await rendition.next();
 
-currentPage = Math.min(totalPages, currentPage + 1);
+    currentPage += 1;
 
-updateLocation();
+    updateLocation();
 
   } else {
 
+    if (currentPage <= 1) {
+
+      return;
+
+    }
+
     await rendition.prev();
 
-currentPage = Math.max(1, currentPage - 1);
+    currentPage -= 1;
 
-updateLocation();
+    updateLocation();
 
   }
+
+}
 
 
     
 
-}
+
  
 document.getElementById("next").onclick = () => turnPage("next");
 
@@ -421,21 +435,34 @@ document.getElementById("fontMinus").onclick = () => {
 };
 
 // Ten-page jump: walk ten paginated spreads in the current direction.
+
 async function jump(n) {
 
   for (let i = 0; i < Math.abs(n); i++) {
 
     if (n > 0) {
 
+      if (currentPage >= totalPages) {
+
+        break;
+
+      }
+
       await rendition.next();
 
-      currentPage = Math.min(totalPages, currentPage + 1);
+      currentPage += 1;
 
     } else {
 
+      if (currentPage <= 1) {
+
+        break;
+
+      }
+
       await rendition.prev();
 
-      currentPage = Math.max(1, currentPage - 1);
+      currentPage -= 1;
 
     }
 
@@ -444,6 +471,8 @@ async function jump(n) {
   updateLocation();
 
 }
+
+  
 document.getElementById("forward10").onclick = () => jump(10);
 document.getElementById("back10").onclick = () => jump(-10);
 
