@@ -67,15 +67,11 @@ function renderToc(items, parent) {
     a.style.marginLeft = "20px";
     a.textContent = item.label;
     a.href = "#";
-    a.onclick = async e => {
+ a.onclick = e => {
 
   e.preventDefault();
 
-  if (item.label.trim() === "Chương 1. Chiếc gương soi từ tự nhiên") {
-
-    await jump(20 - currentPage);
-
-  }
+  alert(item.label + "\n" + item.href);
 
 };
     parent.appendChild(a);
