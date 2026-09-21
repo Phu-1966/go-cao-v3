@@ -68,11 +68,11 @@ function renderToc(items, parent) {
     a.style.marginLeft = "20px";
     a.textContent = item.label;
     a.href = "#";
- a.onclick = e => {
+ a.onclick = async e => {
 
   e.preventDefault();
 
-  alert(item.label + "\n" + item.href);
+  await rendition.display(item.href);
 
 };
     parent.appendChild(a);
