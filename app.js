@@ -17,16 +17,14 @@ gap: 0 ,
 });
 
 rendition.spread("none");
-
-
-rendition.hooks.content.register(contents => {
 rendition.hooks.content.hooks.shift();
-
 rendition.on("linkClicked", href => {
 
   alert("EPUB link:\n" + href);
 
 });
+rendition.hooks.content.register(contents => {
+
   const doc = contents.document;
 
   doc.querySelectorAll("p").forEach(p => {
@@ -58,23 +56,11 @@ if (isTocPage) {
 
 
 doc.querySelectorAll("a").forEach(a => {
-
+a.removeAttribute("href");
   a.style.display = "block";
 
   a.style.marginLeft = "28px";
-if (a.textContent.trim().startsWith("Chương 1.")) {
 
-  a.onclick = async e => {
-
-    e.preventDefault();
-
-    await jump(20 - currentPage);
-
-  };
-
-}
-
-    }
 });
 }
 
@@ -526,3 +512,5 @@ document.querySelectorAll(".book-row").forEach(btn => {
     btn.classList.add("active");
   };
 });
+
+
