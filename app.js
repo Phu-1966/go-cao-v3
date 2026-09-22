@@ -74,55 +74,7 @@ function renderToc(items, parent) {
     a.style.marginLeft = "20px";
     a.textContent = item.label;
     a.href = "#";
-a.onclick = async e => {
 
-  e.preventDefault();
-
- try {
-
-    await rendition.display(item.href);
-
-    const chapterPages = {
-
-      "Chương 1": 20,
-
-      "Chương 2": 31,
-
-      "Chương 3": 40,
-
-      "Chương 4": 58,
-
-      "Chương 5": 69,
-
-      "Chương 6": 80,
-
-      "Chương 7": 99,
-
-      "Chương 8": 109,
-
-      "Chương 9": 119,
-
-      "Chương 10": 138,
-
-      "Chương 11": 148
-
-    };
-
-    if (chapterPages[item.label]) {
-
-      currentPage = chapterPages[item.label];
-
-      updateLocation();
-
-    }
-
-  } catch (err) {
-
-    console.error("TOC error:", err);
-
-  }
-
-};
     parent.appendChild(a);
     if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
   });
