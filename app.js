@@ -78,9 +78,9 @@ a.onclick = async e => {
 
   e.preventDefault();
 
- alert("TOC:\n" + item.label + "\n\nHREF:\n" + item.href);
+ try {
 
-};
+    await rendition.display(item.href);
 
     const chapterPages = {
 
