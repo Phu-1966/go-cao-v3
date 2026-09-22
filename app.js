@@ -17,6 +17,17 @@ gap: 0 ,
 });
 
 rendition.spread("none");
+const linkHook = rendition.hooks.content.hooks.find(
+
+  fn => fn.name === "bound handleLinks"
+
+);
+
+if (linkHook) {
+
+  rendition.hooks.content.deregister(linkHook);
+
+}
 rendition.on("linkClicked", href => {
 
   alert("EPUB link:\n" + href);
