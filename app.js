@@ -60,7 +60,17 @@ a.removeAttribute("href");
   a.style.display = "block";
 
   a.style.marginLeft = "28px";
+if (a.textContent.trim().startsWith("Chương 1.")) {
 
+      a.onclick = async e => {
+
+        e.preventDefault();
+
+        await jump(20 - currentPage);
+
+      };
+
+    }
 });
 }
 
