@@ -17,6 +17,13 @@ gap: 0 ,
 });
 
 rendition.spread("none");
+rendition.hooks.content.hooks.shift();
+
+rendition.on("linkClicked", href => {
+
+  alert("EPUB link:\n" + href);
+
+});
 
 rendition.hooks.content.register(contents => {
 
