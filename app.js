@@ -74,7 +74,13 @@ function renderToc(items, parent) {
     a.style.marginLeft = "20px";
     a.textContent = item.label;
     a.href = "#";
+a.onclick = e => {
 
+  e.preventDefault();
+
+  alert(item.label + "\n\nHREF:\n" + item.href);
+
+};
     parent.appendChild(a);
     if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
   });
