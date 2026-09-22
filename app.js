@@ -19,7 +19,13 @@ gap: 0 ,
 rendition.spread("none");
 
 rendition.hooks.content.register(contents => {
+rendition.hooks.content.hooks.shift();
 
+rendition.on("linkClicked", href => {
+
+  alert("EPUB link:\n" + href);
+
+});
   const doc = contents.document;
 
   doc.querySelectorAll("p").forEach(p => {
