@@ -56,7 +56,7 @@ if (isTocPage) {
 
 
 doc.querySelectorAll("a").forEach(a => {
-
+a.removeAttribute("href");
   a.style.display = "block";
 
   a.style.marginLeft = "28px";
