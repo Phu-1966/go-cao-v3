@@ -54,14 +54,32 @@ const isTocPage = doc.body.innerText.includes("MỤC LỤC");
 
 if (isTocPage) {
 
-
 doc.querySelectorAll("a").forEach(a => {
 
   a.style.display = "block";
 
   a.style.marginLeft = "28px";
 
+  a.onclick = e => {
+
+    e.preventDefault();
+
+    alert(
+
+      "Tên chương:\n" +
+
+      a.innerText +
+
+      "\n\nHREF:\n" +
+
+      a.getAttribute("href")
+
+    );
+
+  };
+
 });
+
 }
 
 });
