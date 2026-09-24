@@ -86,7 +86,7 @@ function renderToc(items, parent) {
 a.onclick = function(e) {
 
   e.preventDefault();
-
+ alert("TOC: " + item.href);
   rendition.display(item.href);
 
 };
