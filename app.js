@@ -81,7 +81,7 @@ a.onclick = function(e) {
 
   e.preventDefault();
  alert("TOC: " + item.href);
-  rendition.display(book.path.relative(item.href));
+rendition.display(item.href);
 
 };
     if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
