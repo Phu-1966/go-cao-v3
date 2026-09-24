@@ -111,7 +111,15 @@ function renderToc(items, parent) {
           return;
 
         }
+alert(
 
+  "HREF: " + href +
+
+  "\nSECTION: " + (section ? section.href : "null") +
+
+  "\nINDEX: " + (section ? section.index : "null")
+
+);
         await rendition.display(section.index);
 
         if (chapterPages[href]) {
