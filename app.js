@@ -18,11 +18,7 @@ gap: 0 ,
 
 rendition.spread("none");
 
-rendition.on("linkClicked", href => {
 
-  alert("EPUB link:\n" + href);
-
-});
 rendition.hooks.content.register(contents => {
 
   const doc = contents.document;
@@ -50,35 +46,7 @@ rendition.hooks.content.register(contents => {
     );
 
   });
-const isTocPage = doc.body.innerText.includes("MỤC LỤC");
 
-if (isTocPage) {
-
-doc.querySelectorAll("a").forEach(a => {
-
-  a.style.display = "block";
-
-  a.style.marginLeft = "28px";
-
-  a.onclick = e => {
-
-    e.preventDefault();
-
-    alert(
-
-      "Tên chương:\n" +
-
-      a.innerText +
-
-      "\n\nHREF:\n" +
-
-      a.getAttribute("href")
-
-    );
-
-  };
-
-});
 
 }
 
@@ -87,21 +55,93 @@ doc.querySelectorAll("a").forEach(a => {
 let fontSize = 100;
 
 function renderToc(items, parent) {
+
+  const chapterPages = {
+
+    "ch1.xhtml": 20,
+
+    "ch2.xhtml": 31,
+
+    "ch3.xhtml": 40,
+
+    "ch4.xhtml": 58,
+
+    "ch5.xhtml": 69,
+
+    "ch6.xhtml": 80,
+
+    "ch7.xhtml": 99,
+
+    "ch8.xhtml": 109,
+
+    "ch9.xhtml": 119,
+
+    "ch10.xhtml": 138,
+
+    "ch11.xhtml": 148
+
+  };
+
   items.forEach(item => {
+
     const a = document.createElement("a");
+
     a.style.marginLeft = "20px";
+
+    a.style.display = "block";
+
     a.textContent = item.label;
+
     a.href = "#";
-a.onclick = e => {
 
-  e.preventDefault();
+    a.onclick = async e => {
 
-  alert(item.label + "\n\nHREF:\n" + item.href);
+      e.preventDefault();
 
-};
+      try {
+
+        const href = item.href.split("#")[0];
+
+        const section = book.spine.get(href);
+
+        if (!section) {
+
+          console.error("Không tìm thấy section:", href);
+
+          return;
+
+        }
+
+        await rendition.display(section.index);
+
+        if (chapterPages[href]) {
+
+          currentPage = chapterPages[href];
+
+          updateLocation();
+
+        }
+
+      } catch (err) {
+
+        console.error("TOC error:", err);
+
+      }
+
+      return false;
+
+    };
+
     parent.appendChild(a);
-    if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
+
+    if (item.subitems && item.subitems.length) {
+
+      renderToc(item.subitems, parent);
+
+    }
+
   });
+
 }
 
 book.ready.then(() => {
