@@ -82,9 +82,15 @@ function renderToc(items, parent) {
     const a = document.createElement("a");
     a.style.marginLeft = "20px";
     a.textContent = item.label;
-    a.href = item.href;
+    a.href = "#";
 
-    parent.appendChild(a);
+a.onclick = function(e) {
+
+  e.preventDefault();
+
+  rendition.display(item.href);
+
+};
     if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
   });
 }
