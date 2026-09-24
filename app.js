@@ -85,6 +85,7 @@ if (isTocPage) {
 let fontSize = 100;
 
 function renderToc(items, parent) {
+  alert("renderToc chạy");
   items.forEach(item => {
     const a = document.createElement("a");
     a.style.marginLeft = "20px";
