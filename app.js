@@ -1,5 +1,14 @@
 
 const book = ePub("SU_ICH_KY_THONG_MINH_FINAL_V2.epub", {});
+book.ready.then(() => {
+
+  alert("BOOK READY");
+
+}).catch(err => {
+
+  alert("BOOK ERROR:\n" + err);
+
+});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
