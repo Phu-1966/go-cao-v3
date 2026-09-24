@@ -162,7 +162,11 @@ rendition.display().then(() => {
   
 
   updateLocation();
-  
+  }).catch(err => {
+
+  alert("LỖI MỞ SÁCH:\n\n" + err);
+
+  console.error("EPUB DISPLAY ERROR:", err);
 });
                                
                                
