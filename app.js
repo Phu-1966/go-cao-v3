@@ -61,23 +61,7 @@ doc.querySelectorAll("a").forEach(a => {
 
   a.style.marginLeft = "28px";
 
-  a.onclick = e => {
-
-    e.preventDefault();
-
-    alert(
-
-      "Tên chương:\n" +
-
-      a.innerText +
-
-      "\n\nHREF:\n" +
-
-      a.getAttribute("href")
-
-    );
-
-  };
+  
 
 });
 
