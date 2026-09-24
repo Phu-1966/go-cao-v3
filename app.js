@@ -66,7 +66,13 @@ doc.querySelectorAll("a").forEach(a => {
 });
 
 }
+contents.on("link", href => {
 
+  const relative = book.path.relative(href);
+
+  rendition.display(relative);
+
+});
 });
 
 let fontSize = 100;
