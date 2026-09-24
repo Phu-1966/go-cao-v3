@@ -82,14 +82,8 @@ function renderToc(items, parent) {
     const a = document.createElement("a");
     a.style.marginLeft = "20px";
     a.textContent = item.label;
-    a.href = "#";
-a.onclick = e => {
+    a.href = item.href;
 
-  e.preventDefault();
-
-  alert(item.label + "\n\nHREF:\n" + item.href);
-
-};
     parent.appendChild(a);
     if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
   });
