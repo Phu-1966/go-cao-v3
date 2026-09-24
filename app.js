@@ -60,7 +60,17 @@ doc.querySelectorAll("a").forEach(a => {
 
   a.style.marginLeft = "28px";
 
-  
+  a.addEventListener("click", e => {
+
+  e.preventDefault();
+
+  e.stopPropagation();
+
+  const href = a.getAttribute("href");
+
+  alert("TOC EPUB:\n" + href);
+
+});
 
 });
 
