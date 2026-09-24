@@ -88,7 +88,7 @@ function renderToc(items, parent) {
   items.forEach(item => {
     const a = document.createElement("a");
     a.style.marginLeft = "20px";
-    a.textContent = item.label;
+    a.textContent = item.label + " [" + item.href + "]";
     
 a.addEventListener("click", function(e) {
 
