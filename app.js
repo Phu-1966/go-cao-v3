@@ -51,15 +51,41 @@ rendition.hooks.content.register(contents => {
 let fontSize = 100;
 
 function renderToc(items, parent) {
+
   items.forEach(item => {
+
     const a = document.createElement("a");
-    a.style.marginLeft = "20px";
-    a.textContent = item.label + " [" + item.href + "]";
-    a.href = item.href;
 
+    a.style.display = "block";
 
-    if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
+    a.style.marginLeft = "28px";
+
+    a.style.marginRight = "20px";
+
+    a.style.marginBottom = "18px";
+
+    a.textContent = item.label;
+
+    a.addEventListener("click", function(e) {
+
+      e.preventDefault();
+
+      const target = book.resolve(item.href);
+
+      rendition.display(target);
+
+    });
+
+    parent.appendChild(a);
+
+    if (item.subitems && item.subitems.length) {
+
+      renderToc(item.subitems, parent);
+
+    }
+
   });
+
 }
 
 book.ready.then(() => {
