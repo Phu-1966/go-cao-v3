@@ -54,7 +54,7 @@ function renderToc(items, parent) {
 
   items.forEach(item => {
 
-    const a = document.createElement("a");
+    const a = document.createElement(div");
 
     a.style.display = "block";
 
