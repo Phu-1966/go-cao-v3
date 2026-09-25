@@ -46,7 +46,7 @@ rendition.hooks.content.register(contents => {
     );
 
   });
-
+  });
 
 let fontSize = 100;
 
