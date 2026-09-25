@@ -75,21 +75,7 @@ doc.querySelectorAll("a").forEach(a => {
 });
 
 }
-if (isTocPage) {
 
-  doc.querySelectorAll("a").forEach(a => {
-
-    a.onclick = function(e) {
-
-      e.preventDefault();
-
-      alert("LINK = " + a.getAttribute("href"));
-
-    };
-
-  });
-
-}
 });
 
 let fontSize = 100;
