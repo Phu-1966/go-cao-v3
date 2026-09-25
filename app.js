@@ -66,15 +66,7 @@ function renderToc(items, parent) {
 
     a.textContent = item.label;
 
-    a.addEventListener("click", function(e) {
-
-    e.preventDefault();
-
-    const target = book.resolve(item.href);
-
-    rendition.display(target);
-
-});
+    
 
     parent.appendChild(a);
 
