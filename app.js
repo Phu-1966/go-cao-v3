@@ -46,33 +46,7 @@ rendition.hooks.content.register(contents => {
     );
 
   });
-const isTocPage = doc.body.innerText.includes("MỤC LỤC");
 
-if (isTocPage) {
-
-doc.querySelectorAll("a").forEach(a => {
-
-  a.style.display = "block";
-
-  a.style.marginLeft = "28px";
-
-  a.addEventListener("click", e => {
-
-  e.preventDefault();
-
-  e.stopPropagation();
-
-  const href = a.getAttribute("href");
-
-  alert("TOC EPUB:\n" + href);
-
-});
-
-});
-
-}
-
-});
 
 let fontSize = 100;
 
