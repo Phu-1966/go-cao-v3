@@ -55,16 +55,8 @@ function renderToc(items, parent) {
     const a = document.createElement("a");
     a.style.marginLeft = "20px";
     a.textContent = item.label + " [" + item.href + "]";
-    
-a.addEventListener("click", function(e) {
+    a.href = item.href;
 
-    e.preventDefault();
-
-    const href = item.href.split("#")[0];
-
-alert("TOC HREF = " + item.href);
-
-});
 
     if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
   });
