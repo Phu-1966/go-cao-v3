@@ -62,7 +62,7 @@ a.addEventListener("click", function(e) {
 
     const href = item.href.split("#")[0];
 
-rendition.display(item.href);
+alert("TOC HREF = " + item.href);
 
 });
 
