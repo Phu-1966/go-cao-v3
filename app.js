@@ -70,9 +70,7 @@ function renderToc(items, parent) {
 
       e.preventDefault();
 
-      const target = book.resolve(item.href);
-
-      rendition.display(target);
+      alert(item.href);
 
     });
 
