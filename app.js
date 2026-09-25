@@ -104,7 +104,9 @@ a.addEventListener("click", function(e) {
 
     e.preventDefault();
 
-    rendition.display(item.href);
+    const href = item.href.split("#")[0];
+
+rendition.display(href);
 
 });
 
