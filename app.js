@@ -68,11 +68,13 @@ function renderToc(items, parent) {
 
     a.addEventListener("click", function(e) {
 
-      e.preventDefault();
+    e.preventDefault();
 
-      alert(item.href);
+    const target = book.resolve(item.href);
 
-    });
+    rendition.display(target);
+
+});
 
     parent.appendChild(a);
 
