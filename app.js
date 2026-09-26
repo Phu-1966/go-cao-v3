@@ -1,5 +1,5 @@
 
-const book = ePub("PHIA_SAU_BUC_TUONG_v15.epub", {});
+const book = ePub("PHIA_SAU_BUC_TUONG_v16.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
