@@ -134,6 +134,20 @@ book.ready.then(() => {
   }
 
 });
+
+setTimeout(() => {
+
+  const loading = document.querySelector(".loading");
+
+  if (loading) {
+
+    loading.textContent =
+
+      "EPUB đang bị treo khi khởi tạo...";
+
+  }
+
+}, 8000);
 rendition.display().then(() => {
 
  console.log("RENDITION DISPLAY OK"); 
