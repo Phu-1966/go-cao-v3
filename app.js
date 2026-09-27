@@ -98,44 +98,29 @@ function renderToc(items, parent, level = 0) {
 
 book.ready.then(() => {
 
-  console.log("BOOK READY OK");
+    document.querySelector(".loading").textContent =
 
-  const loading = document.querySelector(".loading");
+        "BOOK READY — EPUB đã mở được";
 
-  if (loading) loading.remove();
-
-  return book.loaded.navigation;
+    return book.loaded.navigation;
 
 }).then(nav => {
 
-  console.log("NAVIGATION OK");
+    document.querySelector(".loading").textContent =
 
-  renderToc(
+        "NAVIGATION READY — Mục lục đã đọc được";
 
-    nav.toc,
-
-    document.getElementById("toc")
-
-  );
+    renderToc(nav.toc, document.getElementById("toc"));
 
 }).catch(err => {
 
-  console.error("EPUB ERROR:", err);
+    document.querySelector(".loading").textContent =
 
-  const loading = document.querySelector(".loading");
+        "LỖI EPUB: " + err.message;
 
-  if (loading) {
-
-    loading.textContent =
-
-      "Lỗi mở sách: " +
-
-      (err && err.message ? err.message : err);
-
-  }
+    console.error(err);
 
 });
-
 setTimeout(() => {
 
   const loading = document.querySelector(".loading");
