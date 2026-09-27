@@ -84,53 +84,21 @@ function renderToc(items, parent, level = 0) {
 
         a.onclick = async () => {
 
-            if (!item.href) return;
+  if (!item.href) return;
 
-            try {
+  try {
 
-                /*
+    await rendition.display(item.href);
 
-                 * Chỉ dùng phần đường dẫn của EPUB,
+    updateLocation();
 
-                 * bỏ #fragment để tránh lỗi trang trắng
+  } catch (error) {
 
-                 * của epub.js khi chạy paginated.
+    console.error("TOC navigation error:", error);
 
-                 */
+  }
 
-                const target = item.href.split("#")[0];
-
-                await rendition.display(target);
-
-                updateLocation();
-
-            } catch (error) {
-
-                console.error("TOC navigation error:", error);
-
-                /*
-
-                 * Fallback: nếu href đầy đủ không mở được,
-
-                 * thử lại bằng chính href gốc.
-
-                 */
-
-                try {
-
-                    await rendition.display(item.href);
-
-                    updateLocation();
-
-                } catch (error2) {
-
-                    console.error("TOC fallback error:", error2);
-
-                }
-
-            }
-
-        };
+};
 
         parent.appendChild(a);
 
