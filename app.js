@@ -114,7 +114,7 @@ rendition.display().then(() => {
 
 let currentPage = 1;
 
-const totalPages = 169;
+let totalPages = 0;
 
 function updateLocation() {
 
