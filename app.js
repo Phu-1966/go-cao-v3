@@ -1,5 +1,6 @@
 
 let book = ePub("PHIA_SAU_BUC_TUONG_v24_final.epub", {});
+document.querySelector(".loading").textContent = "app.js đã chạy";
 let rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
