@@ -512,10 +512,27 @@ document.getElementById("forward10").onclick = () => jump(10);
 document.getElementById("back10").onclick = () => jump(-10);
 
 document.querySelectorAll(".book-row").forEach(btn => {
+
   btn.onclick = () => {
-    document.querySelectorAll(".book-row").forEach(b => b.classList.remove("active"));
+
+    document.querySelectorAll(".book-row").forEach(b =>
+
+      b.classList.remove("active")
+
+    );
+
     btn.classList.add("active");
+
+    const title = btn.querySelector("span")?.textContent.trim();
+
+    if (title) {
+
+      document.getElementById("readerTitle").textContent = title;
+
+    }
+
   };
+
 });
 
 
