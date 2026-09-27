@@ -523,11 +523,13 @@ document.querySelectorAll(".book-row").forEach(btn => {
 
     btn.classList.add("active");
 
-    const title = btn.querySelector("span")?.textContent.trim();
+    const title = btn.dataset.title;
 
-    if (title) {
+if (title) {
 
-      document.getElementById("readerTitle").textContent = title;
+  document.getElementById("readerTitle").textContent = title;
+
+}
 
     }
 
