@@ -96,10 +96,44 @@ function renderToc(items, parent, level = 0) {
 }
 
 book.ready.then(() => {
-  document.querySelector(".loading").remove();
-  return book.loaded.navigation;
-}).then(nav => renderToc(nav.toc, document.getElementById("toc")));
 
+  console.log("BOOK READY OK");
+
+  const loading = document.querySelector(".loading");
+
+  if (loading) loading.remove();
+
+  return book.loaded.navigation;
+
+}).then(nav => {
+
+  console.log("NAVIGATION OK");
+
+  renderToc(
+
+    nav.toc,
+
+    document.getElementById("toc")
+
+  );
+
+}).catch(err => {
+
+  console.error("EPUB ERROR:", err);
+
+  const loading = document.querySelector(".loading");
+
+  if (loading) {
+
+    loading.textContent =
+
+      "Lỗi mở sách: " +
+
+      (err && err.message ? err.message : err);
+
+  }
+
+});
 rendition.display().then(() => {
 
  console.log("RENDITION DISPLAY OK"); 
