@@ -1,5 +1,5 @@
 
-const book = ePub("PHIA_SAU_BUC_TUONG_v22.epub", {});
+const book = ePub("PHIA_SAU_BUC_TUONG_v23.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
@@ -114,7 +114,7 @@ rendition.display().then(() => {
 
 let currentPage = 1;
 
-let totalPages = 0;
+let totalPages = ;
 
 function updateLocation() {
 
