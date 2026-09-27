@@ -406,11 +406,7 @@ async function turnPage(direction) {
 
     if (direction === "next") {
 
-      if (currentPage >= totalPages) {
-
-        return;
-
-      }
+      
 
       await rendition.next();
 
@@ -466,11 +462,11 @@ async function jump(n) {
 
     if (n > 0) {
 
-      if (currentPage >= totalPages) {
+      
 
-        break;
+      
 
-      }
+      
 
       await rendition.next();
 
