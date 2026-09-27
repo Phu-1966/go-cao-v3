@@ -102,7 +102,7 @@ book.ready.then(() => {
 
 rendition.display().then(() => {
 
-  
+ console.log("RENDITION DISPLAY OK"); 
 
   updateLocation();
   
