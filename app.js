@@ -50,33 +50,97 @@ rendition.hooks.content.register(contents => {
 
 let fontSize = 100;
 
-function renderToc(items, parent) {
+function renderToc(items, parent, level = 0) {
 
-  items.forEach(item => {
+    items.forEach(item => {
 
-    const a = document.createElement("div");
+        const a = document.createElement("div");
 
-    a.style.display = "block";
+        a.style.display = "block";
 
-    a.style.marginLeft = "28px";
+        a.style.marginLeft = level === 0 ? "0px" : "24px";
 
-    a.style.marginRight = "20px";
+        a.style.marginRight = "18px";
 
-    a.style.marginBottom = "18px";
+        a.style.marginBottom = level === 0 ? "22px" : "14px";
 
-    a.textContent = item.label;
+        a.style.lineHeight = "1.55";
 
-    
+        a.style.cursor = "pointer";
 
-    parent.appendChild(a);
+        a.textContent = item.label;
 
-    if (item.subitems && item.subitems.length) {
+        if (level === 0) {
 
-      renderToc(item.subitems, parent);
+            a.style.fontWeight = "600";
 
-    }
+            a.style.fontSize = "105%";
 
-  });
+        } else {
+
+            a.style.fontSize = "100%";
+
+        }
+
+        a.onclick = async () => {
+
+            if (!item.href) return;
+
+            try {
+
+                /*
+
+                 * Chỉ dùng phần đường dẫn của EPUB,
+
+                 * bỏ #fragment để tránh lỗi trang trắng
+
+                 * của epub.js khi chạy paginated.
+
+                 */
+
+                const target = item.href.split("#")[0];
+
+                await rendition.display(target);
+
+                updateLocation();
+
+            } catch (error) {
+
+                console.error("TOC navigation error:", error);
+
+                /*
+
+                 * Fallback: nếu href đầy đủ không mở được,
+
+                 * thử lại bằng chính href gốc.
+
+                 */
+
+                try {
+
+                    await rendition.display(item.href);
+
+                    updateLocation();
+
+                } catch (error2) {
+
+                    console.error("TOC fallback error:", error2);
+
+                }
+
+            }
+
+        };
+
+        parent.appendChild(a);
+
+        if (item.subitems && item.subitems.length) {
+
+            renderToc(item.subitems, parent, level + 1);
+
+        }
+
+    });
 
 }
 
