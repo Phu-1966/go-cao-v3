@@ -66,7 +66,7 @@ function renderToc(items, parent, level = 0) {
 
         a.style.lineHeight = "1.55";
 
-        a.style.cursor = "pointer";
+        a.style.cursor = "default";
 
         a.textContent = item.label;
 
@@ -82,24 +82,7 @@ function renderToc(items, parent, level = 0) {
 
         }
 
-        a.onclick = async () => {
-
-  if (!item.href) return;
-
-  try {
-
-    await rendition.display(item.href);
-
-    updateLocation();
-
-  } catch (error) {
-
-    console.error("TOC navigation error:", error);
-
-  }
-
-};
-
+      
         parent.appendChild(a);
 
         if (item.subitems && item.subitems.length) {
