@@ -1,7 +1,7 @@
 document.querySelector(".loading").textContent = "app.js đã chạy";
-let book = ePub("PHIA_SAU_BUC_TUONG_v24_final.epub", {});
+const book = ePub("PHIA_SAU_BUC_TUONG_v24_final.epub", {});
 console.log("BOOK CREATED");
-let rendition = book.renderTo("viewer", {
+const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
 
