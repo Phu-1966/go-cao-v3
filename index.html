@@ -112,6 +112,17 @@ fetch("./app.js?v=999")
 
 </script>
 </script
+  <script>
+
+window.onerror = function(message, source, lineno, colno) {
+
+  document.querySelector(".loading").textContent =
+
+    "LỖI APP.JS: " + message + " — dòng " + lineno;
+
+};
+
+</script>
   <script src="app.js?v=999"></script>
 </body>
 </html>
