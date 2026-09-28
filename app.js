@@ -1,6 +1,5 @@
-document.querySelector(".loading").textContent = "app.js đã chạy";
-const book = ePub("PHIA_SAU_BUC_TUONG_v24_final.epub", {});
-console.log("BOOK CREATED");
+ 
+const book = ePub("SU_ICH_KY_THONG_MINH_FINAL_V2.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
@@ -18,8 +17,6 @@ gap: 0 ,
 });
 
 rendition.spread("none");
-
-
 rendition.hooks.content.register(contents => {
 
   const doc = contents.document;
@@ -47,96 +44,43 @@ rendition.hooks.content.register(contents => {
     );
 
   });
+const isTocPage = doc.body.innerText.includes("MỤC LỤC");
+
+if (isTocPage) {
+
+  doc.querySelectorAll("a").forEach(a => {
+
+    a.style.display = "block";
+
+    a.style.marginLeft = "28px";
+
   });
+
+}
+});
 
 let fontSize = 100;
 
-function renderToc(items, parent, level = 0) {
-
-    items.forEach(item => {
-
-        const a = document.createElement("div");
-
-        a.style.display = "block";
-
-        a.style.marginLeft = level === 0 ? "0px" : "24px";
-
-        a.style.marginRight = "18px";
-
-        a.style.marginBottom = level === 0 ? "22px" : "14px";
-
-        a.style.lineHeight = "1.55";
-
-        a.style.cursor = "default";
-
-        a.textContent = item.label;
-
-        if (level === 0) {
-
-            a.style.fontWeight = "600";
-
-            a.style.fontSize = "105%";
-
-        } else {
-
-            a.style.fontSize = "100%";
-
-        }
-
-      
-        parent.appendChild(a);
-
-        if (item.subitems && item.subitems.length) {
-
-            renderToc(item.subitems, parent, level + 1);
-
-        }
-
-    });
-
+function renderToc(items, parent) {
+  items.forEach(item => {
+    const a = document.createElement("a");
+    a.style.marginLeft = "20px";
+    a.textContent = item.label;
+    a.href = "#";
+    a.onclick = e => { e.preventDefault(); rendition.display(item.href); };
+    parent.appendChild(a);
+    if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
+  });
 }
 
 book.ready.then(() => {
+  document.querySelector(".loading").remove();
+  return book.loaded.navigation;
+}).then(nav => renderToc(nav.toc, document.getElementById("toc")));
 
-    document.querySelector(".loading").textContent =
-
-        "BOOK READY — EPUB đã mở được";
-
-    return book.loaded.navigation;
-
-}).then(nav => {
-
-    document.querySelector(".loading").textContent =
-
-        "NAVIGATION READY — Mục lục đã đọc được";
-
-    renderToc(nav.toc, document.getElementById("toc"));
-
-}).catch(err => {
-
-    document.querySelector(".loading").textContent =
-
-        "LỖI EPUB: " + err.message;
-
-    console.error(err);
-
-});
-setTimeout(() => {
-
-  const loading = document.querySelector(".loading");
-
-  if (loading) {
-
-    loading.textContent =
-
-      "EPUB đang bị treo khi khởi tạo...";
-
-  }
-
-}, 8000);
 rendition.display().then(() => {
 
- console.log("RENDITION DISPLAY OK"); 
+  
 
   updateLocation();
   
@@ -144,11 +88,11 @@ rendition.display().then(() => {
                                
                                
 
-
+rendition.on("relocated", updateLocation);
 
 let currentPage = 1;
 
-let totalPages = 406;
+const totalPages = 357;
 
 function updateLocation() {
 
@@ -439,57 +383,30 @@ if (bodyStyle) {
 
 }
 
-let isTurning = false;
+  async function turnPage(direction) {
 
-async function turnPage(direction) {
+  if (direction === "next") {
 
-  if (isTurning) {
+    await rendition.next();
 
-    return;
+currentPage = Math.min(totalPages, currentPage + 1);
 
-  }
+updateLocation();
 
-  isTurning = true;
+  } else {
 
-  try {
+    await rendition.prev();
 
-    if (direction === "next") {
+currentPage = Math.max(1, currentPage - 1);
 
-      
-
-      await rendition.next();
-
-      currentPage += 1;
-
-      updateLocation();
-
-    } else {
-
-      if (currentPage <= 1) {
-
-        return;
-
-      }
-
-      await rendition.prev();
-
-      currentPage -= 1;
-
-      updateLocation();
-
-    }
-
-  } finally {
-
-    isTurning = false;
+updateLocation();
 
   }
 
-}
 
     
 
-
+}
  
 document.getElementById("next").onclick = () => turnPage("next");
 
@@ -504,34 +421,21 @@ document.getElementById("fontMinus").onclick = () => {
 };
 
 // Ten-page jump: walk ten paginated spreads in the current direction.
-
 async function jump(n) {
 
   for (let i = 0; i < Math.abs(n); i++) {
 
     if (n > 0) {
 
-      
-
-      
-
-      
-
       await rendition.next();
 
-      currentPage += 1;
+      currentPage = Math.min(totalPages, currentPage + 1);
 
     } else {
 
-      if (currentPage <= 1) {
-
-        break;
-
-      }
-
       await rendition.prev();
 
-      currentPage -= 1;
+      currentPage = Math.max(1, currentPage - 1);
 
     }
 
@@ -540,35 +444,12 @@ async function jump(n) {
   updateLocation();
 
 }
-
-  
 document.getElementById("forward10").onclick = () => jump(10);
 document.getElementById("back10").onclick = () => jump(-10);
 
 document.querySelectorAll(".book-row").forEach(btn => {
-
   btn.onclick = () => {
-
-    document.querySelectorAll(".book-row").forEach(b =>
-
-      b.classList.remove("active")
-
-    );
-
+    document.querySelectorAll(".book-row").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
-
-    const title = btn.dataset.title;
-
-if (title) {
-
-  document.getElementById("readerTitle").textContent = title;
-
-}
-
-    }
-
   };
-
 });
-
-
