@@ -87,42 +87,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="https://unpkg.com/@likecoin/epub-ts/dist/epub.umd.js"></script>
- <script>
-
-  document.querySelector(".loading").textContent = "INDEX.JS ĐÃ CHẠY";
-<script>
-
-fetch("./app.js?v=999")
-
-  .then(r => {
-
-    document.querySelector(".loading").textContent =
-
-      "APP.JS HTTP STATUS: " + r.status;
-
-  })
-
-  .catch(err => {
-
-    document.querySelector(".loading").textContent =
-
-      "KHÔNG TẢI ĐƯỢC APP.JS";
-
-  });
-
-</script>
-</script
-  <script>
-
-window.onerror = function(message, source, lineno, colno) {
-
-  document.querySelector(".loading").textContent =
-
-    "LỖI APP.JS: " + message + " — dòng " + lineno;
-
-};
-
-</script>
+ 
   <script src="app.js?v=999"></script>
 </body>
 </html>
