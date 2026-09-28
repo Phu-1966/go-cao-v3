@@ -20,9 +20,20 @@
 
   class="book-row active"
 
-  data-epub="PHIA_SAU_BUC_TUONG_v24_final.epub"
+  data-app="app.js"
 
   data-title="Phía sau bức tường">
+          <button
+
+  class="book-row"
+
+  data-app="app_SU_ICH_KY_THONG_MINH.js"
+
+  data-title="Sự ích kỷ thông minh">
+
+  02 <span>|</span> Sự ích kỷ thông minh
+
+</button>
 
   01 <span>|</span> Phía sau bức tường
 
@@ -88,6 +99,36 @@
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="https://unpkg.com/@likecoin/epub-ts/dist/epub.umd.js"></script>
  
-  <script src="app.js?v=999"></script>
+  <script>
+
+  const params = new URLSearchParams(window.location.search);
+
+  const appFile = params.get("app") || "app.js";
+
+  const script = document.createElement("script");
+
+  script.src = appFile + "?v=" + Date.now();
+
+  document.body.appendChild(script);
+
+  document.querySelectorAll(".book-row").forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+      const app = btn.dataset.app;
+
+      if (app) {
+
+        window.location.href =
+
+          "?app=" + encodeURIComponent(app);
+
+      }
+
+    });
+
+  });
+
+</script>
 </body>
 </html>
