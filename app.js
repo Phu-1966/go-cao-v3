@@ -1,5 +1,5 @@
  
-const book = ePub("SU_ICH_KY_THONG_MINH_FINAL_TOC_ONLY_FROM_ORIGINAL.epub", {});
+const book = ePub("SU_ICH_KY_THONG_MINH_FINAL_V2.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
