@@ -135,7 +135,25 @@ document.querySelector("#bookTitle").textContent =
     });
 
   });
+const selectedApp =
 
+  new URLSearchParams(window.location.search).get("app");
+
+if (selectedApp) {
+
+  document.querySelectorAll(".book-row").forEach(btn => {
+
+    btn.classList.toggle(
+
+      "active",
+
+      btn.dataset.app === selectedApp
+
+    );
+
+  });
+
+}
 </script>
 </body>
 </html>
