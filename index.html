@@ -153,7 +153,9 @@ if (selectedApp) {
         document.querySelector("#bookSubtitle").textContent =
 
             selectedBook.dataset.subtitle;
+document.querySelector("#readerTitle").textContent =
 
+    selectedBook.dataset.title;
         document.querySelectorAll(".book-row").forEach(btn => {
 
             btn.classList.toggle(
