@@ -19,12 +19,12 @@ width:100%;
 }
 .cover-wrap{
 
-  transform:translateY(-14px);
+  transform:translateY(-16px);
 
 }
 .books{
 
-  top:8px;
+  top:10px;
 
 }
 .book-info h1{font-size:42px;line-height:1.05;letter-spacing:2px;font-weight:500;color:#252617;margin:0 0 18px}.book-info p{font-size:17px;line-height:1.55}.btn{display:block;width:245px;padding:14px 16px;margin:12px 0;border-radius:7px;font:16px Georgia;letter-spacing:1px;cursor:pointer}.btn.primary{background:var(--ink);color:white;text-decoration:none;text-align:center}.btn.secondary{background:rgba(255,255,255,.35);border:1px solid #8c7d61;color:#413b2f}.btn:disabled{opacity:.95}.book-info small{display:block;margin:-4px 0 12px 8px;color:#8d806d;font-size:12px;font-style:italic}
