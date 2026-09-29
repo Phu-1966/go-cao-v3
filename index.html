@@ -52,9 +52,9 @@ data-subtitle="Từ sinh học tiến hoá đến nghệ thuật sống của co
       </div>
 
       <div class="book-info">
- <h1 id="bookTitle">SỰ ÍCH KỶ THÔNG MINH</h1>
+ <h1 id="bookTitle">PHÍA SAU BỨC TƯỜNG</h1>
 
-<p id="bookSubtitle">Từ sinh học tiến hoá đến nghệ thuật sống của con người hiện đại</p>
+<p id="bookSubtitle">Một hành trình làm mỏng những bức tường vô hình của nhận thức.</p>
         <button class="btn secondary" disabled>◉ &nbsp; NGHE SÁCH</button>
         <small>Với giọng đọc của chính tác giả</small>
         <button class="btn secondary">ⓘ &nbsp; THÔNG TIN SÁCH</button>
@@ -117,13 +117,7 @@ data-subtitle="Từ sinh học tiến hoá đến nghệ thuật sống của co
     btn.addEventListener("click", () => {
 
       const app = btn.dataset.app;
-document.querySelector("#bookTitle").textContent =
 
-        btn.dataset.title;
-
-    document.querySelector("#bookSubtitle").textContent =
-
-        btn.dataset.subtitle;
       if (app) {
 
         window.location.href =
@@ -137,21 +131,43 @@ document.querySelector("#bookTitle").textContent =
   });
 const selectedApp =
 
-  new URLSearchParams(window.location.search).get("app");
+    new URLSearchParams(window.location.search).get("app");
 
 if (selectedApp) {
 
-  document.querySelectorAll(".book-row").forEach(btn => {
+    const selectedBook =
 
-    btn.classList.toggle(
+        document.querySelector(
 
-      "active",
+            `.book-row[data-app="${selectedApp}"]`
 
-      btn.dataset.app === selectedApp
+        );
 
-    );
+    if (selectedBook) {
 
-  });
+        document.querySelector("#bookTitle").textContent =
+
+            selectedBook.dataset.title;
+
+        document.querySelector("#bookSubtitle").textContent =
+
+            selectedBook.dataset.subtitle;
+
+        document.querySelectorAll(".book-row").forEach(btn => {
+
+            btn.classList.toggle(
+
+                "active",
+
+                btn === selectedBook
+
+            );
+
+        });
+
+    }
+
+}
 
 }
 </script>
