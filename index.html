@@ -134,38 +134,6 @@ document.querySelectorAll(".book-row").forEach(btn => {
 
 </script>
 
-<script>
 
-const selectedApp =
-
-  new URLSearchParams(window.location.search).get("app") || "app.js";
-
-const selectedBook =
-
-  document.querySelector(
-
-    `.book-row[data-app="${selectedApp}"]`
-
-  );
-
-if (selectedBook) {
-
-  document.querySelector("#bookTitle").textContent =
-
-    selectedBook.dataset.title;
-
-  document.querySelector("#bookSubtitle").textContent =
-
-    selectedBook.dataset.subtitle;
-
-  document.querySelectorAll(".book-row").forEach(btn => {
-
-    btn.classList.remove("active");
-
-  });
-
-  selectedBook.classList.add("active");
-  }
-  </script>
 </body>
 </html>
