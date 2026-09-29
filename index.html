@@ -135,37 +135,17 @@ const selectedApp =
 
 if (selectedApp) {
 
-    const selectedBook =
+    document.querySelectorAll(".book-row").forEach(btn => {
 
-        document.querySelector(
+        btn.classList.toggle(
 
-            `.book-row[data-app="${selectedApp}"]`
+            "active",
+
+            btn.dataset.app === selectedApp
 
         );
 
-    if (selectedBook) {
-
-        document.querySelector("#bookTitle").textContent =
-
-            selectedBook.dataset.title;
-
-        document.querySelector("#bookSubtitle").textContent =
-
-            selectedBook.dataset.subtitle;
-
-        document.querySelectorAll(".book-row").forEach(btn => {
-
-            btn.classList.toggle(
-
-                "active",
-
-                btn === selectedBook
-
-            );
-
-        });
-
-    }
+    });
 
 }
 
