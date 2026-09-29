@@ -14,8 +14,13 @@ width:100%;
 
   display:block;
 
-  transform:scale(1.1);
+  transform:scale(1.08);
   
+}
+.cover-wrap{
+
+  transform:translateY(-8px);
+
 }
 .book-info h1{font-size:42px;line-height:1.05;letter-spacing:2px;font-weight:500;color:#252617;margin:0 0 18px}.book-info p{font-size:17px;line-height:1.55}.btn{display:block;width:245px;padding:14px 16px;margin:12px 0;border-radius:7px;font:16px Georgia;letter-spacing:1px;cursor:pointer}.btn.primary{background:var(--ink);color:white;text-decoration:none;text-align:center}.btn.secondary{background:rgba(255,255,255,.35);border:1px solid #8c7d61;color:#413b2f}.btn:disabled{opacity:.95}.book-info small{display:block;margin:-4px 0 12px 8px;color:#8d806d;font-size:12px;font-style:italic}
 .reader-shell{margin:18px 2vw;background:var(--paper);border:1px solid #e1d8c6;border-radius:12px;overflow:hidden;display:grid;grid-template-columns:250px 1fr;min-height:680px;box-shadow:0 10px 35px rgba(50,40,20,.09)}
