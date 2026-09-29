@@ -117,7 +117,13 @@ data-subtitle="Từ sinh học tiến hoá đến nghệ thuật sống của co
     btn.addEventListener("click", () => {
 
       const app = btn.dataset.app;
+document.querySelector("#bookTitle").textContent =
 
+    btn.dataset.title;
+
+document.querySelector("#bookSubtitle").textContent =
+
+    btn.dataset.subtitle;
       if (app) {
 
         window.location.href =
