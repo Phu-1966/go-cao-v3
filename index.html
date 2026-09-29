@@ -52,9 +52,9 @@ data-subtitle="Từ sinh học tiến hoá đến nghệ thuật sống của co
       </div>
 
       <div class="book-info">
-        <h1>SỰ ÍCH KỶ<br>THÔNG MINH</h1>
-        <p>Từ sinh học tiến hoá đến nghệ thuật sống<br>của con người hiện đại</p>
-        <a class="btn primary" href="#reader">▣ &nbsp; ĐỌC SÁCH</a>
+ <h1 id="bookTitle">SỰ ÍCH KỶ THÔNG MINH</h1>
+
+<p id="bookSubtitle">Từ sinh học tiến hoá đến nghệ thuật sống của con người hiện đại</p>
         <button class="btn secondary" disabled>◉ &nbsp; NGHE SÁCH</button>
         <small>Với giọng đọc của chính tác giả</small>
         <button class="btn secondary">ⓘ &nbsp; THÔNG TIN SÁCH</button>
@@ -117,7 +117,13 @@ data-subtitle="Từ sinh học tiến hoá đến nghệ thuật sống của co
     btn.addEventListener("click", () => {
 
       const app = btn.dataset.app;
+document.querySelector("#bookTitle").textContent =
 
+        btn.dataset.title;
+
+    document.querySelector("#bookSubtitle").textContent =
+
+        btn.dataset.subtitle;
       if (app) {
 
         window.location.href =
