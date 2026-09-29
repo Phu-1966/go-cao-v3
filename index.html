@@ -112,30 +112,58 @@ data-subtitle="Từ sinh học tiến hoá đến nghệ thuật sống của co
 
   document.body.appendChild(script);
 
-  document.querySelectorAll(".book-row").forEach(btn => {
+  <script>
 
-    btn.addEventListener("click", () => {
+document.querySelectorAll(".book-row").forEach(btn => {
 
-      const app = btn.dataset.app;
-document.querySelector("#bookTitle").textContent =
+  btn.addEventListener("click", () => {
 
-        btn.dataset.title;
+    const app = btn.dataset.app;
 
-    document.querySelector("#bookSubtitle").textContent =
+    if (app) {
 
-        btn.dataset.subtitle;
-      if (app) {
+      window.location.href =
 
-        window.location.href =
+        "?app=" + encodeURIComponent(app);
 
-          "?app=" + encodeURIComponent(app);
-
-      }
-
-    });
+    }
 
   });
 
+});
+
 </script>
+
+<script>
+
+const selectedApp =
+
+  new URLSearchParams(window.location.search).get("app") || "app.js";
+
+const selectedBook =
+
+  document.querySelector(
+
+    `.book-row[data-app="${selectedApp}"]`
+
+  );
+
+if (selectedBook) {
+
+  document.querySelector("#bookTitle").textContent =
+
+    selectedBook.dataset.title;
+
+  document.querySelector("#bookSubtitle").textContent =
+
+    selectedBook.dataset.subtitle;
+
+  document.querySelectorAll(".book-row").forEach(btn => {
+
+    btn.classList.remove("active");
+
+  });
+
+  selectedBook.classList.add("active");
 </body>
 </html>
