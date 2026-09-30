@@ -1,5 +1,5 @@
 
-const book = ePub("Song_Khong_Doi_Khang_Go_Cao_V9.epub", {});
+const book = ePub("Song_Khong_Doi_Khang_Go_Cao_V9_FINAL.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
