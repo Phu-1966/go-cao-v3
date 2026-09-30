@@ -1,5 +1,5 @@
 
-const book = ePub("Ao_Anh_Trung_Tam_Go_Cao_V7.epub", {});
+const book = ePub("Ao_Anh_Trung_Tam_Go_Cao_V8.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
