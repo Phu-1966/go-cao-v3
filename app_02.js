@@ -1,5 +1,5 @@
 
-const book = ePub("Ao_Anh_Trung_Tam_Go_Cao_V4.epub", {});
+const book = ePub("Ao_Anh_Trung_Tam_Go_Cao_V5.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
@@ -92,7 +92,7 @@ rendition.on("relocated", updateLocation);
 
 let currentPage = 1;
 
-const totalPages = 400;
+const totalPages = 136;
 
 function updateLocation() {
 
