@@ -1,5 +1,5 @@
 
-const book = ePub("SU_ICH_KY_THONG_MINH_FINAL_V2.epub", {});
+const book = ePub("Giua_Hai_The_Gioi_Go_Cao_V8.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
