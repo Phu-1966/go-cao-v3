@@ -92,7 +92,7 @@ rendition.on("relocated", updateLocation);
 
 let currentPage = 1;
 
-const totalPages = 357;
+const totalPages = 500;
 
 function updateLocation() {
 
