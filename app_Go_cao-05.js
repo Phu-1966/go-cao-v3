@@ -1,5 +1,5 @@
 
-const book = ePub("Kien_Tao_Tu_Rong_Khong_Go_Cao_V8.epub", {});
+const book = ePub("Kien_Tao_Tu_Rong_Khong_Go_Cao_V8_FIXED.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
