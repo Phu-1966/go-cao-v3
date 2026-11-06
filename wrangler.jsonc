@@ -4,11 +4,15 @@
 
   "compatibility_date": "2026-09-04",
 
+  "main": "worker.js",
+
   "assets": {
 
     "directory": ".",
 
-    "base_path": "/go-cao"
+    "binding": "ASSETS",
+
+    "run_worker_first": true
 
   }
 
