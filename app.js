@@ -127,7 +127,7 @@ book.ready.then(() => {
   return book.loaded.navigation;
 }).then(nav => renderToc(nav.toc, document.getElementById("toc")));
 
-// Mở sách và khôi phục vị trí đọc gần nhất
+  // Mở sách và khôi phục vị trí đọc gần nhất
 
 book.ready.then(async () => {
 
@@ -153,36 +153,31 @@ book.ready.then(async () => {
 
     if (resume) {
 
-  try {
+      try {
 
-    await rendition.display(savedCfi);
+        await rendition.display(savedCfi);
 
-    const savedPage = Number(
+        const savedPage = Number(
 
-      localStorage.getItem(PAGE_STORAGE_KEY)
+          localStorage.getItem(PAGE_STORAGE_KEY)
 
-    );
+        );
 
-    if (savedPage >= 1 && savedPage <= totalPages) {
+        if (savedPage >= 1 && savedPage <= totalPages) {
 
-      currentPage = savedPage;
+          currentPage = savedPage;
 
-    }
+        }
 
-  } catch (e) {
-
-    console.warn("Không thể khôi phục vị trí đọc:", e);
-
-    localStorage.removeItem(STORAGE_KEY);
-
-    localStorage.removeItem(PAGE_STORAGE_KEY);
-
-    await rendition.display();
-
-  }
+      } catch (e) {
 
         console.warn("Không thể khôi phục vị trí đọc:", e);
+
         localStorage.removeItem(STORAGE_KEY);
+
+        localStorage.removeItem(PAGE_STORAGE_KEY);
+
+        currentPage = 1;
 
         await rendition.display();
 
@@ -190,19 +185,19 @@ book.ready.then(async () => {
 
     } else {
 
-    } else {
+      localStorage.removeItem(STORAGE_KEY);
 
-  localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(PAGE_STORAGE_KEY);
 
-  localStorage.removeItem(PAGE_STORAGE_KEY);
+      currentPage = 1;
 
-  currentPage = 1;
+      await rendition.display();
 
-  await rendition.display();
-
-}
+    }
 
   } else {
+
+    currentPage = 1;
 
     await rendition.display();
 
@@ -216,26 +211,9 @@ book.ready.then(async () => {
 
   console.error("Lỗi mở sách:", error);
 
-});
-                               
+});                             
 
-function updateLocation(location) {
 
-  if (!location || !location.start || !location.start.cfi) return;
-
-  const page = book.locations.locationFromCfi(
-
-    location.start.cfi
-
-  );
-
-  const total = book.locations.total;
-
-  document.getElementById("location").textContent =
-
-    `Trang ${page + 1} / ${total}`;
-
-}
   
 function showDiagnostic() {
 
