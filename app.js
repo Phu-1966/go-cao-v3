@@ -73,7 +73,7 @@ let restoringReadingPosition = true;
 
 rendition.on("relocated", location => {
 
-  updateLocation();
+  updateLocation(location);
 
   const cfi = location && location.start && location.start.cfi;
 
@@ -178,11 +178,21 @@ let currentPage = 1;
 
 const totalPages = 400;
 
-function updateLocation() {
+function updateLocation(location) {
 
-  document.getElementById("location").textContent =
+  if (!location || !location.start || !location.start.displayed) return;
 
-    `Trang ${currentPage} / ${totalPages}`;
+  const page = location.start.displayed.page;
+
+  const total = location.start.displayed.total;
+
+  if (page && total) {
+
+    document.getElementById("location").textContent =
+
+      `Trang ${page} / ${total}`;
+
+  }
 
 }
   
