@@ -113,7 +113,7 @@ book.ready.then(() => {
 // Mở sách và khôi phục vị trí đọc gần nhất
 
 book.ready.then(async () => {
-
+await book.locations.generate(1000);
   let savedCfi = null;
 
   try {
@@ -180,19 +180,19 @@ const totalPages = 400;
 
 function updateLocation(location) {
 
-  if (!location || !location.start || !location.start.displayed) return;
+  if (!location || !location.start || !location.start.cfi) return;
 
-  const page = location.start.displayed.page;
+  const page = book.locations.locationFromCfi(
 
-  const total = location.start.displayed.total;
+    location.start.cfi
 
-  if (page && total) {
+  );
 
-    document.getElementById("location").textContent =
+  const total = book.locations.total;
 
-      `Trang ${page} / ${total}`;
+  document.getElementById("location").textContent =
 
-  }
+    `Trang ${page + 1} / ${total}`;
 
 }
   
