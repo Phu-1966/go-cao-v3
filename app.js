@@ -114,6 +114,9 @@ book.ready.then(() => {
 
 book.ready.then(async () => {
 await book.locations.generate(1000);
+  console.log("Tổng mốc vị trí:", book.locations.total);
+
+console.log("Đã tạo locations:", book.locations.length());
   let savedCfi = null;
 
   try {
