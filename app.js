@@ -61,6 +61,38 @@ if (isTocPage) {
 
 let fontSize = 100;
 
+// Ghi nhớ vị trí đọc riêng cho cuốn Phía sau bức tường
+
+const BOOK_ID = "phia-sau-buc-tuong-v24";
+
+const STORAGE_KEY = "go-cao-reading-" + BOOK_ID;
+
+let restoringReadingPosition = true;
+
+// Mỗi khi vị trí đọc thay đổi, lưu CFI
+
+rendition.on("relocated", location => {
+
+  updateLocation();
+
+  const cfi = location && location.start && location.start.cfi;
+
+  if (cfi && !restoringReadingPosition) {
+
+    try {
+
+      localStorage.setItem(STORAGE_KEY, cfi);
+
+    } catch (e) {
+
+      console.warn("Không thể lưu vị trí đọc:", e);
+
+    }
+
+  }
+
+});
+
 function renderToc(items, parent) {
   items.forEach(item => {
     const a = document.createElement("a");
@@ -78,17 +110,69 @@ book.ready.then(() => {
   return book.loaded.navigation;
 }).then(nav => renderToc(nav.toc, document.getElementById("toc")));
 
-rendition.display().then(() => {
+// Mở sách và khôi phục vị trí đọc gần nhất
 
-  
+book.ready.then(async () => {
+
+  let savedCfi = null;
+
+  try {
+
+    savedCfi = localStorage.getItem(STORAGE_KEY);
+
+  } catch (e) {
+
+    console.warn("Không thể đọc vị trí đã lưu:", e);
+
+  }
+
+  if (savedCfi) {
+
+    const resume = confirm(
+
+      "Bạn có muốn đọc tiếp từ vị trí đang đọc dở không?"
+
+    );
+
+    if (resume) {
+
+      try {
+
+        await rendition.display(savedCfi);
+
+      } catch (e) {
+
+        console.warn("Không thể khôi phục vị trí đọc:", e);
+        localStorage.removeItem(STORAGE_KEY);
+
+        await rendition.display();
+
+      }
+
+    } else {
+
+      localStorage.removeItem(STORAGE_KEY);
+
+      await rendition.display();
+
+    }
+
+  } else {
+
+    await rendition.display();
+
+  }
+
+  restoringReadingPosition = false;
 
   updateLocation();
-  
+
+}).catch(error => {
+
+  console.error("Lỗi mở sách:", error);
+
 });
                                
-                               
-
-rendition.on("relocated", updateLocation);
 
 let currentPage = 1;
 
