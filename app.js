@@ -61,11 +61,24 @@ if (isTocPage) {
 
 let fontSize = 100;
 
+let currentPage = 1;
+
+const totalPages = 400;
+
+function updateLocation() {
+
+  document.getElementById("location").textContent =
+
+    `Trang ${currentPage} / ${totalPages}`;
+
+}
+
 // Ghi nhớ vị trí đọc riêng cho cuốn Phía sau bức tường
 
 const BOOK_ID = "phia-sau-buc-tuong-v24";
 
 const STORAGE_KEY = "go-cao-reading-" + BOOK_ID;
+const PAGE_STORAGE_KEY = STORAGE_KEY + "-page";
 
 let restoringReadingPosition = true;
 
@@ -73,7 +86,6 @@ let restoringReadingPosition = true;
 
 rendition.on("relocated", location => {
 
-  updateLocation(location);
   console.log("CFI:", location.start.cfi);
 
   console.log("EPUB page:", location.start.displayed.page,
@@ -118,10 +130,7 @@ book.ready.then(() => {
 // Mở sách và khôi phục vị trí đọc gần nhất
 
 book.ready.then(async () => {
-await book.locations.generate(1000);
-  console.log("Tổng mốc vị trí:", book.locations.total);
 
-console.log("Đã tạo locations:", book.locations.length());
   let savedCfi = null;
 
   try {
@@ -144,11 +153,33 @@ console.log("Đã tạo locations:", book.locations.length());
 
     if (resume) {
 
-      try {
+  try {
 
-        await rendition.display(savedCfi);
+    await rendition.display(savedCfi);
 
-      } catch (e) {
+    const savedPage = Number(
+
+      localStorage.getItem(PAGE_STORAGE_KEY)
+
+    );
+
+    if (savedPage >= 1 && savedPage <= totalPages) {
+
+      currentPage = savedPage;
+
+    }
+
+  } catch (e) {
+
+    console.warn("Không thể khôi phục vị trí đọc:", e);
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    localStorage.removeItem(PAGE_STORAGE_KEY);
+
+    await rendition.display();
+
+  }
 
         console.warn("Không thể khôi phục vị trí đọc:", e);
         localStorage.removeItem(STORAGE_KEY);
@@ -159,11 +190,17 @@ console.log("Đã tạo locations:", book.locations.length());
 
     } else {
 
-      localStorage.removeItem(STORAGE_KEY);
+    } else {
 
-      await rendition.display();
+  localStorage.removeItem(STORAGE_KEY);
 
-    }
+  localStorage.removeItem(PAGE_STORAGE_KEY);
+
+  currentPage = 1;
+
+  await rendition.display();
+
+}
 
   } else {
 
@@ -487,11 +524,17 @@ if (bodyStyle) {
 
     await rendition.next();
 
+    currentPage = Math.min(totalPages, currentPage + 1);
+
   } else {
 
     await rendition.prev();
 
+    currentPage = Math.max(1, currentPage - 1);
+
   }
+localStorage.setItem(PAGE_STORAGE_KEY, currentPage);
+  updateLocation();
 
 }
  
@@ -517,13 +560,21 @@ async function jump(n) {
 
       await rendition.next();
 
+      currentPage = Math.min(totalPages, currentPage + 1);
+
     } else {
 
       await rendition.prev();
 
+      currentPage = Math.max(1, currentPage - 1);
+
     }
 
   }
+
+  localStorage.setItem(PAGE_STORAGE_KEY, currentPage);
+
+  updateLocation();
 
 }
 
