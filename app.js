@@ -74,6 +74,11 @@ let restoringReadingPosition = true;
 rendition.on("relocated", location => {
 
   updateLocation(location);
+  console.log("CFI:", location.start.cfi);
+
+  console.log("EPUB page:", location.start.displayed.page,
+
+              "/", location.start.displayed.total);
 
   const cfi = location && location.start && location.start.cfi;
 
