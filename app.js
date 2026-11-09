@@ -177,10 +177,6 @@ console.log("Đã tạo locations:", book.locations.length());
 });
                                
 
-let currentPage = 1;
-
-const totalPages = 400;
-
 function updateLocation(location) {
 
   if (!location || !location.start || !location.start.cfi) return;
@@ -486,22 +482,11 @@ if (bodyStyle) {
 
     await rendition.next();
 
-currentPage = Math.min(totalPages, currentPage + 1);
-
-updateLocation();
-
   } else {
 
     await rendition.prev();
 
-currentPage = Math.max(1, currentPage - 1);
-
-updateLocation();
-
   }
-
-
-    
 
 }
  
@@ -518,6 +503,7 @@ document.getElementById("fontMinus").onclick = () => {
 };
 
 // Ten-page jump: walk ten paginated spreads in the current direction.
+
 async function jump(n) {
 
   for (let i = 0; i < Math.abs(n); i++) {
@@ -526,21 +512,16 @@ async function jump(n) {
 
       await rendition.next();
 
-      currentPage = Math.min(totalPages, currentPage + 1);
-
     } else {
 
       await rendition.prev();
-
-      currentPage = Math.max(1, currentPage - 1);
 
     }
 
   }
 
-  updateLocation();
-
 }
+
 document.getElementById("forward10").onclick = () => jump(10);
 document.getElementById("back10").onclick = () => jump(-10);
 
