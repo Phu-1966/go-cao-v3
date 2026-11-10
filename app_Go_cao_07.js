@@ -63,7 +63,7 @@ let fontSize = 100;
 
 let currentPage = 1;
 
-const totalPages = 440;
+const totalPages = 443;
 
 // Khóa lưu riêng cho Ảo ảnh trung tâm
 
