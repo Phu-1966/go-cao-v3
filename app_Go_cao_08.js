@@ -61,38 +61,19 @@ if (isTocPage) {
 
 let fontSize = 100;
 
-function renderToc(items, parent) {
-  items.forEach(item => {
-    const a = document.createElement("a");
-    a.style.marginLeft = "20px";
-    a.textContent = item.label;
-    a.href = "#";
-    a.onclick = e => { e.preventDefault(); rendition.display(item.href); };
-    parent.appendChild(a);
-    if (item.subitems && item.subitems.length) renderToc(item.subitems, parent);
-  });
-}
-
-book.ready.then(() => {
-  document.querySelector(".loading").remove();
-  return book.loaded.navigation;
-}).then(nav => renderToc(nav.toc, document.getElementById("toc")));
-
-rendition.display().then(() => {
-
-  
-
-  updateLocation();
-  
-});
-                               
-                               
-
-rendition.on("relocated", updateLocation);
-
 let currentPage = 1;
 
-const totalPages = 357;
+const totalPages = 150;
+
+// Khóa lưu riêng cho Ảo ảnh trung tâm
+
+const BOOK_ID = "ao-anh-trung-tam-v8";
+
+const STORAGE_KEY = "go-cao-reading-" + BOOK_ID;
+
+const PAGE_STORAGE_KEY = STORAGE_KEY + "-page";
+
+let restoringReadingPosition = true;
 
 function updateLocation() {
 
@@ -101,6 +82,149 @@ function updateLocation() {
     `Trang ${currentPage} / ${totalPages}`;
 
 }
+
+// Lưu vị trí đọc bằng CFI
+
+rendition.on("relocated", location => {
+
+  const cfi = location && location.start && location.start.cfi;
+
+  if (cfi && !restoringReadingPosition) {
+
+    try {
+
+      localStorage.setItem(STORAGE_KEY, cfi);
+
+    } catch (e) {
+
+      console.warn("Không thể lưu vị trí đọc:", e);
+
+    }
+
+  }
+
+});
+function renderToc(items, parent) {
+
+  items.forEach(item => {
+
+    const a = document.createElement("a");
+
+    a.style.marginLeft = "20px";
+
+    a.textContent = item.label;
+
+    a.href = "#";
+
+    a.onclick = e => {
+
+      e.preventDefault();
+
+      rendition.display(item.href);
+
+    };
+
+    parent.appendChild(a);
+
+    if (item.subitems && item.subitems.length) {
+
+      renderToc(item.subitems, parent);
+
+    }
+
+  });
+
+}
+book.ready.then(() => {
+  document.querySelector(".loading").remove();
+  return book.loaded.navigation;
+}).then(nav => renderToc(nav.toc, document.getElementById("toc")));
+
+// Mở sách và khôi phục vị trí đọc gần nhất
+
+book.ready.then(async () => {
+
+  let savedCfi = null;
+
+  try {
+
+    savedCfi = localStorage.getItem(STORAGE_KEY);
+
+  } catch (e) {
+
+    console.warn("Không thể đọc vị trí đã lưu:", e);
+
+  }
+
+  if (savedCfi) {
+
+    const resume = confirm(
+
+      "Bạn có muốn đọc tiếp từ vị trí đang đọc dở không?"
+
+    );
+
+    if (resume) {
+
+      try {
+
+        await rendition.display(savedCfi);
+
+        const savedPage = Number(
+
+          localStorage.getItem(PAGE_STORAGE_KEY)
+
+        );
+
+        if (savedPage >= 1 && savedPage <= totalPages) {
+
+          currentPage = savedPage;
+
+        }
+
+      } catch (e) {
+
+        console.warn("Không thể khôi phục vị trí đọc:", e);
+
+        localStorage.removeItem(STORAGE_KEY);
+
+        localStorage.removeItem(PAGE_STORAGE_KEY);
+
+        currentPage = 1;
+
+        await rendition.display();
+
+      }
+
+    } else {
+
+      localStorage.removeItem(STORAGE_KEY);
+
+      localStorage.removeItem(PAGE_STORAGE_KEY);
+
+      currentPage = 1;
+
+      await rendition.display();
+
+    }
+
+  } else {
+
+    currentPage = 1;
+
+    await rendition.display();
+
+  }
+
+  restoringReadingPosition = false;
+
+  updateLocation();
+
+}).catch(error => {
+
+  console.error("Lỗi mở sách:", error);
+
+});
   
 function showDiagnostic() {
 
@@ -389,22 +513,19 @@ if (bodyStyle) {
 
     await rendition.next();
 
-currentPage = Math.min(totalPages, currentPage + 1);
-
-updateLocation();
+    currentPage = Math.min(totalPages, currentPage + 1);
 
   } else {
 
     await rendition.prev();
 
-currentPage = Math.max(1, currentPage - 1);
-
-updateLocation();
+    currentPage = Math.max(1, currentPage - 1);
 
   }
 
+  localStorage.setItem(PAGE_STORAGE_KEY, currentPage);
 
-    
+  updateLocation();
 
 }
  
@@ -440,7 +561,7 @@ async function jump(n) {
     }
 
   }
-
+localStorage.setItem(PAGE_STORAGE_KEY, currentPage);
   updateLocation();
 
 }
