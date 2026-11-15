@@ -228,7 +228,18 @@
   script.src = appFile + "?v=" + Date.now();
 
   document.body.appendChild(script);
+    
+const coverVideo = document.querySelector(".cover-video");
 
+coverVideo.addEventListener("loadeddata", () => {
+
+  coverVideo.play().catch(err => {
+
+    console.log("Cover video chưa thể tự phát:", err);
+
+  });
+
+});
   document.querySelectorAll(".book-row").forEach(btn => {
 
     btn.addEventListener("click", () => {
