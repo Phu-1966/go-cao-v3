@@ -27,6 +27,55 @@
 
 </a>
   <header class="top">
+    <button id="gcAudioButton"
+
+  type="button"
+
+  aria-label="Bật âm thanh Gò Cao"
+
+  aria-pressed="false"
+
+  style="
+
+    position:fixed;
+
+    top:70px;
+
+    right:12px;
+
+    z-index:9999;
+
+    padding:10px 14px;
+
+    border-radius:24px;
+
+    background:rgba(248,240,226,.94);
+
+    color:#61472f;
+
+    border:1px solid rgba(97,71,47,.25);
+
+    font:600 13px/1.2 system-ui,sans-serif;
+
+    box-shadow:0 2px 10px rgba(40,25,12,.16);
+
+    cursor:pointer;
+
+  ">
+
+  🔇 Âm thanh
+
+</button>
+
+<audio id="gcAmbientAudio"
+
+  src="go-cao-forest-ambience.mp3"
+
+  loop
+
+  preload="none">
+
+</audio>
     <div class="brand">GÒ CAO <span>Trí tuệ và Khoa học</span></div>
     <nav><a href="#library">THƯ VIỆN</a><a href="#reader">ĐỌC SÁCH</a><a href="#about">GIỚI THIỆU</a></nav>
   </header>
@@ -228,6 +277,45 @@
   script.src = appFile + "?v=" + Date.now();
 
   document.body.appendChild(script);
+    const gcAudio = document.querySelector("#gcAmbientAudio");
+
+const gcAudioButton = document.querySelector("#gcAudioButton");
+
+gcAudio.volume = 0.22;
+
+gcAudioButton.addEventListener("click", async () => {
+
+  if (gcAudio.paused) {
+
+    try {
+
+      await gcAudio.play();
+
+      gcAudioButton.textContent = "🔊 Âm thanh";
+
+      gcAudioButton.setAttribute("aria-pressed", "true");
+
+      gcAudioButton.setAttribute("aria-label", "Tắt âm thanh Gò Cao");
+
+    } catch (error) {
+
+      console.log("Không thể phát âm thanh:", error);
+
+    }
+
+  } else {
+
+    gcAudio.pause();
+
+    gcAudioButton.textContent = "🔇 Âm thanh";
+
+    gcAudioButton.setAttribute("aria-pressed", "false");
+
+    gcAudioButton.setAttribute("aria-label", "Bật âm thanh Gò Cao");
+
+  }
+
+});
     
 const coverVideo = document.querySelector(".cover-video");
 
