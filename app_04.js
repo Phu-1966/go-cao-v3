@@ -219,6 +219,25 @@ book.ready.then(async () => {
   restoringReadingPosition = false;
 
   updateLocation();
+  restoringReadingPosition = false;
+
+// Phát lại video bìa sau khi đóng hộp thoại xác nhận
+
+const coverVideo = document.querySelector(".cover-video");
+
+if (coverVideo) {
+
+  coverVideo.muted = true;
+
+  coverVideo.play().catch(err => {
+
+    console.log("Không thể phát lại video bìa:", err);
+
+  });
+
+}
+
+updateLocation();
 
 }).catch(error => {
 
