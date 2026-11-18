@@ -1,5 +1,5 @@
 
-const book = ePub("PHIA_SAU_BUC_TUONG_bia_NXB.epub", {});
+const book = ePub("PHIA_SAU_BUC_TUONG_V24_FINAL_BIA_NXB.epub", {});
 const rendition = book.renderTo("viewer", {
 
   width: document.getElementById("viewer").clientWidth,
